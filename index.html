@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>研究所志願整理｜資工／資管／AI 相關</title>
+  <style>
+    :root {
+      --bg: #f3f0ea;
+      --paper: #fffdf8;
+      --ink: #1c1a16;
+      --muted: #5f584e;
+      --line: #d9d1c4;
+      --accent: #0f5c4c;
+      --accent-soft: #dceee8;
+      --chip: #efe8dc;
+      --shadow: 0 18px 40px rgba(40, 32, 18, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(15, 92, 76, 0.08), transparent 28%),
+        linear-gradient(180deg, #ebe4d8 0%, var(--bg) 40%, #ebe6dc 100%);
+      font-family: "Iowan Old Style", "Palatino Linotype", "Noto Serif TC", "Songti TC", serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { color: #083c32; }
+
+    .wrap {
+      width: min(980px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.5rem 0 4rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      padding: 1.75rem 1.5rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0 0 0.4rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: 0.02em;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    nav.toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.6rem;
+      margin: 1.25rem 0 0;
+    }
+
+    nav.toc a {
+      display: block;
+      padding: 0.65rem 0.8rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid #c5ddd5;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    nav.toc a:hover {
+      background: #cfe6de;
+    }
+
+    .uni {
+      margin: 1.4rem 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    .uni-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.6rem 1rem;
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #f7f2e9, #eef6f3);
+    }
+
+    .uni-head h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .uni-head .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.86rem;
+    }
+
+    .uni-body {
+      padding: 0.4rem 1.25rem 1.2rem;
+    }
+
+    .college {
+      margin-top: 1rem;
+    }
+
+    .college h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    ul.programs {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    ul.programs > li {
+      padding: 0.75rem 0.85rem;
+      background: #faf7f1;
+      border: 1px solid #ebe3d6;
+    }
+
+    .prog-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 0.75rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-weight: 650;
+    }
+
+    .prog-title a {
+      font-weight: 650;
+    }
+
+    .groups {
+      margin: 0.45rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: var(--chip);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    footer {
+      margin-top: 1.5rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 1.2rem, 980px); padding-top: 1.2rem; }
+      .uni-head, .uni-body, header { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>研究所志願整理</h1>
+      <p>資工／資管／AI／工管相關系所清單，附官方網站與招生入口連結。報名前請以各校當年度簡章為準。</p>
+      <nav class="toc" aria-label="學校目錄">
+        <a href="#nycu">1. 陽明交大</a>
+        <a href="#ntust">2. 台科大</a>
+        <a href="#ntut">3. 北科大</a>
+        <a href="#ncu">4. 中央大學</a>
+        <a href="#nchu">5. 中興大學</a>
+        <a href="#ncku">7. 成功大學</a>
+        <a href="#nthu">8. 清華大學</a>
+        <a href="#nccu">9. 政治大學</a>
+        <a href="#ntnu">10. 臺灣師大</a>
+      </nav>
+    </header>
+
+    <!-- 1. 陽明交大 -->
+    <section class="uni" id="nycu">
+      <div class="uni-head">
+        <h2>1. 國立陽明交通大學（陽明交大）</h2>
+        <div class="links">
+          <a href="https://www.nycu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://exam.nycu.edu.tw/" target="_blank" rel="noopener">招生資訊</a>
+          <a href="https://admission.cs.nycu.edu.tw/" target="_blank" rel="noopener">資訊學院招生系統</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <div class="college">
+          <h3>資訊學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://www.cs.nycu.edu.tw/" target="_blank" rel="noopener">資訊科學與工程研究所</a>
+                <span class="chip">含聯招甲組</span>
+              </div>
+              <ul class="groups">
+                <li>甲組（資訊聯招）</li>
+                <li>丙組：實作導向</li>
+                <li>丁組：系統與網路管理實務</li>
+                <li>戊組：校務資訊系統技術與實務</li>
+              </ul>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://www.cs.nycu.edu.tw/intro/organization?locale=zh" target="_blank" rel="noopener">網路工程研究所</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://www.cs.nycu.edu.tw/intro/organization?locale=zh" target="_blank" rel="noopener">多媒體工程研究所</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://www.cs.nycu.edu.tw/" target="_blank" rel="noopener">資訊安全研究所</a>
+              </div>
+              <ul class="groups">
+                <li>甲組</li>
+                <li>乙組</li>
+              </ul>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://www.cs.nycu.edu.tw/intro/organization?locale=zh" target="_blank" rel="noopener">數據科學與工程研究所</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://www.cs.nycu.edu.tw/intro/organization?locale=zh" target="_blank" rel="noopener">人工智慧與醫學計算研究所</a>
+                <span class="chip">新設</span>
+              </div>
+              <ul class="groups">
+                <li>人工智慧組</li>
+                <li>醫學計算組</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="college">
+          <h3>管理學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://iim.nycu.edu.tw/" target="_blank" rel="noopener">資訊管理研究所</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://ms.nycu.edu.tw/" target="_blank" rel="noopener">管理科學系</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://mot.nycu.edu.tw/" target="_blank" rel="noopener">科技管理研究所</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://iem.nycu.edu.tw/" target="_blank" rel="noopener">工業工程與管理學系</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="college">
+          <h3>AI／智慧相關專設所與學程</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://www.nycu.edu.tw/aigpece/ch/index" target="_blank" rel="noopener">人工智慧技術與應用碩士學位學程</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://ai.nycu.edu.tw/%e6%9c%ac%e9%99%a2%e7%b3%bb%e6%89%80/" target="_blank" rel="noopener">智慧科學暨綠能學院－智慧計算與科技研究所碩士班</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://ai.nycu.edu.tw/%e6%9c%ac%e9%99%a2%e7%b3%bb%e6%89%80/" target="_blank" rel="noopener">智慧科學暨綠能學院－智慧系統與應用研究所碩士班</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://iais.nycu.edu.tw/intro2.html" target="_blank" rel="noopener">產學創新學院－智能系統研究所</a>
+              </div>
+              <ul class="groups">
+                <li>甲組：人工智慧</li>
+                <li>乙組：資安與資工</li>
+                <li>丙組：寬頻通訊與物聯網</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 台科大 -->
+    <section class="uni" id="ntust">
+      <div class="uni-head">
+        <h2>2. 國立臺灣科技大學（台科大）</h2>
+        <div class="links">
+          <a href="https://www.ntust.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://www.admission.ntust.edu.tw/" target="_blank" rel="noopener">招生入口</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <ul class="programs" style="margin-top:1rem">
+          <li>
+            <div class="prog-title">
+              <a href="https://www.gsas.ntust.edu.tw/" target="_blank" rel="noopener">應用科技研究所</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://mba.ntust.edu.tw/" target="_blank" rel="noopener">管理學院 MBA</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://www.im.ntust.edu.tw/" target="_blank" rel="noopener">工業管理系</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://www.cs.ntust.edu.tw/" target="_blank" rel="noopener">資訊管理系</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://www.cs.ntust.edu.tw/p/412-1102-11272.php?Lang=zh-tw" target="_blank" rel="noopener">資訊管理系資訊安全科技與管理碩士班</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://tm-r.ntust.edu.tw/" target="_blank" rel="noopener">科技管理研究所</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://innc.ntust.edu.tw/p/412-1111-11490.php?Lang=zh-tw" target="_blank" rel="noopener">智慧製造科技研究所</a>
+            </div>
+          </li>
+          <li>
+            <div class="prog-title">
+              <a href="https://innc.ntust.edu.tw/" target="_blank" rel="noopener">人工智慧跨域科技研究所</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. 北科大 -->
+    <section class="uni" id="ntut">
+      <div class="uni-head">
+        <h2>3. 國立臺北科技大學（北科大）</h2>
+        <div class="links">
+          <a href="https://www.ntut.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://graduate.ntut.edu.tw/" target="_blank" rel="noopener">研究所招生</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <div class="college">
+          <h3>管理學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://iem.ntut.edu.tw/" target="_blank" rel="noopener">工業工程與管理系</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://ifm.ntut.edu.tw/" target="_blank" rel="noopener">資訊與財金管理系</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="college">
+          <h3>創新學院（創新前瞻科技研究學院）</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://ifirst.ntut.edu.tw/p/412-1130-16928.php?Lang=zh-tw" target="_blank" rel="noopener">人工智慧科技碩士學位學程</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <a href="https://ifirst.ntut.edu.tw/p/412-1130-16928.php?Lang=zh-tw" target="_blank" rel="noopener">資訊安全碩士學位學程</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <p style="margin:1rem 0 0;color:var(--muted);font-family:'Segoe UI','Noto Sans TC',sans-serif;font-size:0.9rem">
+          機電學院相關系所可另從
+          <a href="https://cmee.ntut.edu.tw/" target="_blank" rel="noopener">機電學院</a>
+          查詢。
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. 中央 -->
+    <section class="uni" id="ncu">
+      <div class="uni-head">
+        <h2>4. 國立中央大學</h2>
+        <div class="links">
+          <a href="https://www.ncu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://cis.ncu.edu.tw/ExamRegister/" target="_blank" rel="noopener">招生系統</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <div class="college">
+          <h3>資電學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://www.lst.ncu.edu.tw/" target="_blank" rel="noopener">網路學習科技研究所</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="college">
+          <h3>管理學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://im.mgt.ncu.edu.tw/" target="_blank" rel="noopener">資訊管理學系</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="college">
+          <h3>管理學院／工管相關</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://ia.mgt.ncu.edu.tw/" target="_blank" rel="noopener">工業管理研究所</a>
+                <span class="chip">管理學院</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="college">
+          <h3>其他</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://igpai.ncu.edu.tw/" target="_blank" rel="noopener">資訊電機學院人工智慧碩士學位學程</a>
+                <span class="chip">人工智慧國際碩士學位學程</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 中興 -->
+    <section class="uni" id="nchu">
+      <div class="uni-head">
+        <h2>5. 國立中興大學</h2>
+        <div class="links">
+          <a href="https://www.nchu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://recruit.nchu.edu.tw/" target="_blank" rel="noopener">招生資訊</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <div class="college">
+          <h3>資訊與工程／管理相關</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://mis.nchu.edu.tw/" target="_blank" rel="noopener">資訊管理學系</a>
+              </div>
+            </li>
+            <li>
+              <div class="prog-title">
+                <span>工業工程與管理學系</span>
+                <span class="chip">官方系網待確認；可先查招生簡章</span>
+              </div>
+              <ul class="groups">
+                <li>
+                  參考：
+                  <a href="https://recruit.nchu.edu.tw/" target="_blank" rel="noopener">中興招生資訊</a>
+                  ／
+                  <a href="https://www.nchu.edu.tw/academic/mid/189" target="_blank" rel="noopener">管理學院</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 成大 -->
+    <section class="uni" id="ncku">
+      <div class="uni-head">
+        <h2>7. 國立成功大學（成大）</h2>
+        <div class="links">
+          <a href="https://www.ncku.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://adms-acad.ncku.edu.tw/" target="_blank" rel="noopener">招生事務組</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <ul class="programs" style="margin-top:1rem">
+          <li>
+            <div class="prog-title">
+              <a href="https://aim.ncku.edu.tw/" target="_blank" rel="noopener">人工智慧科技碩士學位學程</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8. 清大 -->
+    <section class="uni" id="nthu">
+      <div class="uni-head">
+        <h2>8. 國立清華大學（清大）</h2>
+        <div class="links">
+          <a href="https://www.nthu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://adms.site.nthu.edu.tw/" target="_blank" rel="noopener">招生策略中心</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <ul class="programs" style="margin-top:1rem">
+          <li>
+            <div class="prog-title">
+              <a href="https://www.cs.nthu.edu.tw/" target="_blank" rel="noopener">資訊工程學系丙組（人工智慧組）</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9. 政大 -->
+    <section class="uni" id="nccu">
+      <div class="uni-head">
+        <h2>9. 國立政治大學（政大）</h2>
+        <div class="links">
+          <a href="https://www.nccu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://admission.nccu.edu.tw/" target="_blank" rel="noopener">招生入口</a>
+          <a href="https://coi.nccu.edu.tw/" target="_blank" rel="noopener">資訊學院</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <ul class="programs" style="margin-top:1rem">
+          <li>
+            <div class="prog-title">
+              <a href="https://www.cs.nccu.edu.tw/" target="_blank" rel="noopener">資訊科學系人工智慧組</a>
+              <span class="chip">參見智慧計算／AI 相關組別</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10. 師大 -->
+    <section class="uni" id="ntnu">
+      <div class="uni-head">
+        <h2>10. 國立臺灣師範大學（師大）</h2>
+        <div class="links">
+          <a href="https://www.ntnu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://www.ciai.ntnu.edu.tw/" target="_blank" rel="noopener">跨域科技產業創新學院</a>
+        </div>
+      </div>
+      <div class="uni-body">
+        <ul class="programs" style="margin-top:1rem">
+          <li>
+            <div class="prog-title">
+              <a href="https://www.ciai.ntnu.edu.tw/index.php/elementor-5842/" target="_blank" rel="noopener">跨域科技產業創新學院－AI 跨域應用研究所</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      連結以各校系所官方頁面為主；組別名額與考試方式請再核對當年度招生簡章。
+    </footer>
+  </div>
+</body>
+</html>

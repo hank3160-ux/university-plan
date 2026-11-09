@@ -194,10 +194,85 @@
       .wrap { width: min(100% - 1.2rem, 980px); padding-top: 1.2rem; }
       .uni-head, .uni-body, header { padding-left: 1rem; padding-right: 1rem; }
     }
+
+    .wrap[hidden] { display: none !important; }
+
+    .gate {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+    }
+
+    .gate[hidden] { display: none !important; }
+
+    .gate-card {
+      width: min(420px, 100%);
+      padding: 1.6rem 1.4rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    .gate-card h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.35rem;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Noto Serif TC", "Songti TC", serif;
+    }
+
+    .gate-card p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .gate-card form {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .gate-card input {
+      width: 100%;
+      padding: 0.7rem 0.8rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+    }
+
+    .gate-card button {
+      padding: 0.7rem 0.9rem;
+      border: 1px solid #0b4a3d;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .gate-card button:hover { background: #083c32; }
+
+    .gate-error {
+      min-height: 1.2em;
+      margin: 0;
+      color: #8a1f1f;
+      font-size: 0.88rem;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <h1>研究所志願整理</h1>
+      <p>此頁面受密碼保護。請輸入分享密碼後繼續。</p>
+      <form id="gate-form" autocomplete="off">
+        <input id="gate-pass" type="password" name="password" placeholder="請輸入密碼" required />
+        <button type="submit">進入</button>
+      </form>
+      <p class="gate-error" id="gate-error" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="wrap" id="app" hidden>
     <header>
       <h1>研究所志願整理</h1>
       <p>資工／資管／AI／工管相關系所清單，附官方網站與招生入口連結。報名前請以各校當年度簡章為準。</p>
@@ -617,5 +692,48 @@
       連結以各校系所官方頁面為主；組別名額與考試方式請再核對當年度招生簡章。
     </footer>
   </div>
+
+  <script>
+    (function () {
+      const PASS_HASH = "18026b81766807182b896422ebffd6502f8648fdad2e9d3c122a74afbcb245e7";
+      const STORAGE_KEY = "university-plan-unlocked-v1";
+      const gate = document.getElementById("gate");
+      const app = document.getElementById("app");
+      const form = document.getElementById("gate-form");
+      const input = document.getElementById("gate-pass");
+      const error = document.getElementById("gate-error");
+
+      async function sha256Hex(text) {
+        const data = new TextEncoder().encode(text);
+        const buf = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(buf))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      function unlock() {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        gate.hidden = true;
+        app.hidden = false;
+      }
+
+      if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+        unlock();
+        return;
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        error.textContent = "";
+        const hash = await sha256Hex(input.value.trim());
+        if (hash === PASS_HASH) {
+          unlock();
+        } else {
+          error.textContent = "密碼錯誤，請再試一次。";
+          input.select();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

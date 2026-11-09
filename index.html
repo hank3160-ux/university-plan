@@ -7,6 +7,9 @@
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
   <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
   <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>研究所志願整理｜資工／資管／AI 相關</title>
   <style>
     :root {
@@ -695,38 +698,32 @@
 
   <script>
     (function () {
-      const PASS_HASH = "9af15b336e6a9619928537df30b2e6a2376569fcf9d7e773eccede65606529a0";
-      const STORAGE_KEY = "university-plan-unlocked-v2";
+      // Share password: 0000
+      const PASSWORD = "0000";
+      const STORAGE_KEY = "university-plan-unlocked-v3";
       const gate = document.getElementById("gate");
       const app = document.getElementById("app");
       const form = document.getElementById("gate-form");
       const input = document.getElementById("gate-pass");
       const error = document.getElementById("gate-error");
 
-      async function sha256Hex(text) {
-        const data = new TextEncoder().encode(text);
-        const buf = await crypto.subtle.digest("SHA-256", data);
-        return Array.from(new Uint8Array(buf))
-          .map((b) => b.toString(16).padStart(2, "0"))
-          .join("");
-      }
-
       function unlock() {
-        sessionStorage.setItem(STORAGE_KEY, "1");
+        try { sessionStorage.setItem(STORAGE_KEY, "1"); } catch (e) {}
         gate.hidden = true;
         app.hidden = false;
       }
 
-      if (sessionStorage.getItem(STORAGE_KEY) === "1") {
-        unlock();
-        return;
-      }
+      try {
+        if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+          unlock();
+          return;
+        }
+      } catch (e) {}
 
-      form.addEventListener("submit", async (e) => {
+      form.addEventListener("submit", function (e) {
         e.preventDefault();
         error.textContent = "";
-        const hash = await sha256Hex(input.value.trim());
-        if (hash === PASS_HASH) {
+        if (input.value.trim() === PASSWORD) {
           unlock();
         } else {
           error.textContent = "密碼錯誤，請再試一次。";

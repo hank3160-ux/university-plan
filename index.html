@@ -124,6 +124,68 @@
       font-size: 0.86rem;
     }
 
+    .schedule {
+      flex-basis: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.65rem;
+      margin-top: 0.15rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .schedule span {
+      display: inline-block;
+      padding: 0.22rem 0.55rem;
+      background: rgba(255, 253, 248, 0.92);
+      border: 1px solid var(--line);
+    }
+
+    .schedule b {
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .schedule-board {
+      margin-top: 1.25rem;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #faf7f1;
+    }
+
+    .schedule-board table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.88rem;
+    }
+
+    .schedule-board th,
+    .schedule-board td {
+      padding: 0.55rem 0.7rem;
+      border-bottom: 1px solid #ebe3d6;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .schedule-board th {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 650;
+    }
+
+    .schedule-board tr:last-child td { border-bottom: 0; }
+
+    .schedule-board a { text-decoration: none; }
+
+    .schedule-note {
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
     .uni-body {
       padding: 0.4rem 1.25rem 1.2rem;
     }
@@ -278,7 +340,7 @@
   <div class="wrap" id="app" hidden>
     <header>
       <h1>研究所志願整理</h1>
-      <p>資工／資管／AI／工管相關系所清單，附官方網站、116 碩士班考試簡章與已核對考科。報名前請以各校最新公告為準。</p>
+      <p>資工／資管／AI／工管相關系所清單，附官方網站、116 碩士班考試簡章、報名／筆試時間與已核對考科。報名前請以各校最新公告為準。</p>
       <nav class="toc" aria-label="學校目錄">
         <a href="#nycu">1. 陽明交大</a>
         <a href="#ntust">2. 台科大</a>
@@ -292,6 +354,32 @@
         <a href="#nsysu">11. 中山大學</a>
         <a href="#ccu">12. 中正大學</a>
       </nav>
+      <div class="schedule-board" aria-label="116考試入學報名與筆試一覽">
+        <table>
+          <thead>
+            <tr>
+              <th>學校</th>
+              <th>報名（115 年）</th>
+              <th>筆試（116 年）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><a href="#nycu">陽明交大</a></td><td>12/8(二)–12/15(二)</td><td>1/27(三)–1/28(四)</td></tr>
+            <tr><td>台聯大</td><td>11/20(五)–11/23(一)</td><td>1/30(六)–1/31(日)</td></tr>
+            <tr><td><a href="#ntust">台科大</a></td><td>11/27(五)–12/10(四)</td><td>1/25(一)</td></tr>
+            <tr><td><a href="#ntut">北科大</a></td><td>12/1(二)–12/10(四)</td><td>面試約 2/16–2/21（圖表列 2/21）</td></tr>
+            <tr><td><a href="#ncu">中央</a></td><td>11/17(二)–11/26(四)</td><td>1/29(五)–1/30(六)</td></tr>
+            <tr><td><a href="#nchu">中興</a></td><td>11/24(二)–12/8(二)</td><td>2/2(二)</td></tr>
+            <tr><td><a href="#ncku">成大</a></td><td>11/30(一)–12/7(一)</td><td>1/27(三)–1/28(四)</td></tr>
+            <tr><td><a href="#nthu">清大</a></td><td>11/24(二)–12/1(二)</td><td>1/26(二)–1/27(三)</td></tr>
+            <tr><td><a href="#nccu">政大</a></td><td>11/24(二)–12/8(二)</td><td>2/1(一)–2/2(二)</td></tr>
+            <tr><td><a href="#ntnu">師大</a></td><td>11/10(二)–11/20(五)</td><td>1/26(二)</td></tr>
+            <tr><td><a href="#nsysu">中山</a></td><td>12/1(二)–12/16(三)</td><td>2/3(三)</td></tr>
+            <tr><td><a href="#ccu">中正</a></td><td>11/26(四)–12/8(二)</td><td>1/27(三)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="schedule-note">上表已對照 115／116 年曆與各校招生公告；部分系所無筆試、僅書審／面試，實際以簡章分則為準。</p>
     </header>
 
     <!-- 1. 陽明交大 -->
@@ -304,6 +392,12 @@
           <a href="https://exam.nycu.edu.tw/apfiles/getFile.aspx?type=1&amp;id=1f82a6dd-19b2-4982-bb0c-427f8908bd3a" target="_blank" rel="noopener">116碩士考試簡章</a>
           <a href="https://exam.nycu.edu.tw/apfiles/action.aspx?id=69a930aa-2f9d-499f-9c24-ec3a5593ae67" target="_blank" rel="noopener">116台聯大簡章</a>
           <a href="https://admission.cs.nycu.edu.tw/" target="_blank" rel="noopener">資訊學院招生系統</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/12/8(二)–12/15(二)</span>
+          <span><b>筆試</b>116/1/27(三)–1/28(四)</span>
+          <span><b>台聯大報名</b>115/11/20(五)–11/23(一)</span>
+          <span><b>台聯大筆試</b>116/1/30(六)–1/31(日)</span>
         </div>
       </div>
       <div class="uni-body">
@@ -451,6 +545,11 @@
           <a href="https://www.admission.ntust.edu.tw/" target="_blank" rel="noopener">招生入口</a>
           <a href="https://www.admission.ntust.edu.tw/var/file/52/1052/img/2674/143224768.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
         </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/27(五)–12/10(四)</span>
+          <span><b>筆試</b>116/1/25(一)</span>
+          <span><b>口試</b>約 116/2/19–2/21（系所自訂；多數本頁系所為書審／口試）</span>
+        </div>
       </div>
       <div class="uni-body">
         <div class="college">
@@ -536,6 +635,10 @@
           <a href="https://graduate.ntut.edu.tw/" target="_blank" rel="noopener">研究所招生</a>
           <a href="https://graduate.ntut.edu.tw/var/file/135/1135/img/4117/801990773.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
         </div>
+        <div class="schedule">
+          <span><b>報名</b>115/12/1(二)–12/10(四)</span>
+          <span><b>考試／面試</b>約 116/2/16–2/21（圖表列 2/21；本頁所列多為書審／面試）</span>
+        </div>
       </div>
       <div class="uni-body">
         <div class="college">
@@ -597,6 +700,10 @@
           <a href="https://cis.ncu.edu.tw/ExamRegister/" target="_blank" rel="noopener">招生系統</a>
           <a href="https://admission.ncu.edu.tw/static/file/24/1024/img/458/455320457.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
         </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/17(二)–11/26(四)</span>
+          <span><b>筆試</b>116/1/29(五)–1/30(六)</span>
+        </div>
       </div>
       <div class="uni-body">
         <div class="college">
@@ -657,6 +764,10 @@
           <a href="https://recruit.nchu.edu.tw/" target="_blank" rel="noopener">招生資訊</a>
           <a href="https://recruit.nchu.edu.tw/grade-exam/master/116/116M_PAPER1031.pdf" target="_blank" rel="noopener">116碩士考試簡章（更正版）</a>
         </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/24(二)–12/8(二)</span>
+          <span><b>筆試</b>116/2/2(二)</span>
+        </div>
       </div>
       <div class="uni-body">
         <div class="college">
@@ -696,6 +807,10 @@
           <a href="https://adms-acad.ncku.edu.tw/" target="_blank" rel="noopener">招生事務組</a>
           <a href="https://adms-acad.ncku.edu.tw/var/file/44/1044/img/4427/868509778.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
         </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/30(一)–12/7(一)</span>
+          <span><b>筆試</b>116/1/27(三)–1/28(四)</span>
+        </div>
       </div>
       <div class="uni-body">
         <ul class="programs" style="margin-top:1rem">
@@ -716,6 +831,10 @@
           <a href="https://www.nthu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://adms.site.nthu.edu.tw/" target="_blank" rel="noopener">招生策略中心</a>
           <a href="https://adms.site.nthu.edu.tw/var/file/207/1207/img/342/202159932.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/24(二)–12/1(二)</span>
+          <span><b>筆試</b>116/1/26(二)–1/27(三)</span>
         </div>
       </div>
       <div class="uni-body">
@@ -757,6 +876,10 @@
           <a href="https://admission.nccu.edu.tw/" target="_blank" rel="noopener">招生入口</a>
           <a href="https://www.nccu.edu.tw/p/406-1000-24245,r125.php?Lang=zh-tw" target="_blank" rel="noopener">116碩士班招生簡章</a>
           <a href="https://coi.nccu.edu.tw/" target="_blank" rel="noopener">資訊學院</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/24(二)–12/8(二)</span>
+          <span><b>筆試</b>116/2/1(一)–2/2(二)</span>
         </div>
       </div>
       <div class="uni-body">
@@ -806,6 +929,10 @@
           <a href="https://www.ciai.ntnu.edu.tw/" target="_blank" rel="noopener">跨域科技產業創新學院</a>
           <a href="https://www.aa.ntnu.edu.tw/zh_tw/admission/116%E5%AD%B8%E5%B9%B4%E5%BA%A6%E7%A2%A9%E5%A3%AB%E7%8F%AD%E8%80%83%E8%A9%A6%E6%8B%9B%E7%94%9F%E7%B0%A1%E7%AB%A0%E6%9A%A8%E9%99%84%E4%BB%B6-7478625" target="_blank" rel="noopener">116碩士考試簡章</a>
         </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/10(二)–11/20(五)</span>
+          <span><b>筆試</b>116/1/26(二)</span>
+        </div>
       </div>
       <div class="uni-body">
         <ul class="programs" style="margin-top:1rem">
@@ -826,6 +953,10 @@
           <a href="https://www.nsysu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://exam-oaa.nsysu.edu.tw/" target="_blank" rel="noopener">招生資訊</a>
           <a href="https://oaa.nsysu.edu.tw/p/405-1003-382739,c95.php?Lang=zh-tw" target="_blank" rel="noopener">116碩士考試簡章</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/12/1(二)–12/16(三)</span>
+          <span><b>筆試</b>116/2/3(三)</span>
         </div>
       </div>
       <div class="uni-body">
@@ -856,6 +987,10 @@
           <a href="https://www.ccu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://exams.ccu.edu.tw/" target="_blank" rel="noopener">招生資訊</a>
           <a href="https://exams.ccu.edu.tw/var/file/32/1032/img/1131/s1_announce.html" target="_blank" rel="noopener">116碩士考試簡章</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/11/26(四)–12/8(二)</span>
+          <span><b>筆試</b>116/1/27(三)</span>
         </div>
       </div>
       <div class="uni-body">

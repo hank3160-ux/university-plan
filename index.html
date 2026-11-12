@@ -147,6 +147,25 @@
       font-weight: 650;
     }
 
+    .countdown {
+      color: var(--accent);
+      border-color: #c5ddd5;
+      background: var(--accent-soft);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown.is-open {
+      color: #6b4a12;
+      border-color: #e2d2ad;
+      background: #f4ead3;
+    }
+
+    .countdown.is-done {
+      color: var(--muted);
+      background: #f0ebe3;
+      border-color: var(--line);
+    }
+
     .schedule-board {
       margin-top: 1.25rem;
       overflow-x: auto;
@@ -395,9 +414,13 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/12/8(二)–12/15(二)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-08T09:00:00+08:00" data-end="2026-12-15T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/27(三)–1/28(四)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-27T08:00:00+08:00" data-end="2027-01-28T18:00:00+08:00" data-label="筆試">計算中…</span>
           <span><b>台聯大報名</b>115/11/20(五)–11/23(一)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-20T09:00:00+08:00" data-end="2026-11-23T17:00:00+08:00" data-label="台聯大報名">計算中…</span>
           <span><b>台聯大筆試</b>116/1/30(六)–1/31(日)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-30T08:00:00+08:00" data-end="2027-01-31T18:00:00+08:00" data-label="台聯大筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -547,8 +570,11 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/27(五)–12/10(四)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-27T09:00:00+08:00" data-end="2026-12-10T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/25(一)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-25T08:00:00+08:00" data-end="2027-01-25T18:00:00+08:00" data-label="筆試">計算中…</span>
           <span><b>口試</b>約 116/2/19–2/21（系所自訂；多數本頁系所為書審／口試）</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-19T08:00:00+08:00" data-end="2027-02-21T18:00:00+08:00" data-label="口試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -637,7 +663,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/12/1(二)–12/10(四)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-01T09:00:00+08:00" data-end="2026-12-10T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>考試／面試</b>約 116/2/16–2/21（圖表列 2/21；本頁所列多為書審／面試）</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-16T08:00:00+08:00" data-end="2027-02-21T18:00:00+08:00" data-label="面試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -702,7 +730,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/17(二)–11/26(四)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-17T09:00:00+08:00" data-end="2026-11-26T15:30:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/29(五)–1/30(六)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-29T08:00:00+08:00" data-end="2027-01-30T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -766,7 +796,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/24(二)–12/8(二)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-24T09:00:00+08:00" data-end="2026-12-08T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/2/2(二)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-02T08:00:00+08:00" data-end="2027-02-02T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -809,7 +841,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/30(一)–12/7(一)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-30T09:00:00+08:00" data-end="2026-12-07T12:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/27(三)–1/28(四)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-27T08:00:00+08:00" data-end="2027-01-28T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -834,7 +868,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/24(二)–12/1(二)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-24T10:00:00+08:00" data-end="2026-12-01T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/26(二)–1/27(三)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-26T08:00:00+08:00" data-end="2027-01-27T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -879,7 +915,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/24(二)–12/8(二)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-24T09:00:00+08:00" data-end="2026-12-08T15:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/2/1(一)–2/2(二)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-01T08:00:00+08:00" data-end="2027-02-02T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -931,7 +969,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/10(二)–11/20(五)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-10T09:00:00+08:00" data-end="2026-11-20T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/26(二)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-26T08:00:00+08:00" data-end="2027-01-26T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -956,7 +996,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/12/1(二)–12/16(三)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-01T12:00:00+08:00" data-end="2026-12-16T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/2/3(三)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-03T08:00:00+08:00" data-end="2027-02-03T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -990,7 +1032,9 @@
         </div>
         <div class="schedule">
           <span><b>報名</b>115/11/26(四)–12/8(二)</span>
+          <span class="countdown" data-kind="reg" data-start="2026-11-26T09:00:00+08:00" data-end="2026-12-08T17:00:00+08:00" data-label="報名">計算中…</span>
           <span><b>筆試</b>116/1/27(三)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-27T08:00:00+08:00" data-end="2027-01-27T18:00:00+08:00" data-label="筆試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
@@ -1037,10 +1081,7 @@
       }
 
       try {
-        if (sessionStorage.getItem(STORAGE_KEY) === "1") {
-          unlock();
-          return;
-        }
+        if (sessionStorage.getItem(STORAGE_KEY) === "1") unlock();
       } catch (e) {}
 
       form.addEventListener("submit", function (e) {
@@ -1053,6 +1094,57 @@
           input.select();
         }
       });
+
+      function formatRemain(ms) {
+        if (ms < 0) ms = 0;
+        var totalHours = Math.floor(ms / 3600000);
+        var days = Math.floor(totalHours / 24);
+        var hours = totalHours % 24;
+        return days + " 天 " + hours + " 小時";
+      }
+
+      function setCountdown(el, text, state) {
+        el.textContent = text;
+        el.classList.toggle("is-open", state === "open");
+        el.classList.toggle("is-done", state === "done");
+      }
+
+      function tickCountdowns() {
+        var now = Date.now();
+        var nodes = document.querySelectorAll(".countdown");
+        for (var i = 0; i < nodes.length; i++) {
+          var el = nodes[i];
+          var kind = el.getAttribute("data-kind") || "exam";
+          var label = el.getAttribute("data-label") || "";
+          var start = Date.parse(el.getAttribute("data-start") || "");
+          var end = Date.parse(el.getAttribute("data-end") || "");
+          if (!isFinite(start) || !isFinite(end)) {
+            setCountdown(el, label + "時間待確認", "done");
+            continue;
+          }
+
+          if (kind === "reg") {
+            if (now < start) {
+              setCountdown(el, "距" + label + "開始 " + formatRemain(start - now), "idle");
+            } else if (now <= end) {
+              setCountdown(el, label + "進行中｜距截止 " + formatRemain(end - now), "open");
+            } else {
+              setCountdown(el, label + "已截止", "done");
+            }
+          } else {
+            if (now < start) {
+              setCountdown(el, "距" + label + " " + formatRemain(start - now), "idle");
+            } else if (now <= end) {
+              setCountdown(el, label + "進行中", "open");
+            } else {
+              setCountdown(el, label + "已結束", "done");
+            }
+          }
+        }
+      }
+
+      tickCountdowns();
+      setInterval(tickCountdowns, 1000);
     })();
   </script>
 </body>

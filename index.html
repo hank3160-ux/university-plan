@@ -22,6 +22,20 @@
       --accent-soft: #dceee8;
       --chip: #efe8dc;
       --shadow: 0 18px 40px rgba(40, 32, 18, 0.08);
+      --c-quota: #0f5c4c;
+      --c-quota-bg: #e4f2ed;
+      --c-exam: #1e4d78;
+      --c-exam-bg: #e6eef6;
+      --c-weight: #8a4b16;
+      --c-weight-bg: #f6ebdd;
+      --c-date: #5a3d7a;
+      --c-date-bg: #efe8f5;
+      --c-warn: #8f2f2a;
+      --c-warn-bg: #f6e6e4;
+      --c-docs: #4f5d3a;
+      --c-docs-bg: #eef1e6;
+      --c-contact: #5f584e;
+      --c-contact-bg: #f0ebe3;
     }
 
     * { box-sizing: border-box; }
@@ -256,6 +270,79 @@
       font-size: 0.92rem;
     }
 
+    .facts {
+      margin: 0.55rem 0 0;
+      display: grid;
+      gap: 0.35rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 4.2rem 1fr;
+      gap: 0.55rem;
+      align-items: start;
+    }
+
+    .fact .k {
+      display: inline-block;
+      padding: 0.12rem 0.4rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .fact .v {
+      color: var(--ink);
+      line-height: 1.55;
+      padding-top: 0.05rem;
+    }
+
+    .k-quota { color: var(--c-quota); background: var(--c-quota-bg); }
+    .k-exam { color: var(--c-exam); background: var(--c-exam-bg); }
+    .k-weight { color: var(--c-weight); background: var(--c-weight-bg); }
+    .k-date { color: var(--c-date); background: var(--c-date-bg); }
+    .k-warn { color: var(--c-warn); background: var(--c-warn-bg); }
+    .k-docs { color: var(--c-docs); background: var(--c-docs-bg); }
+    .k-contact { color: var(--c-contact); background: var(--c-contact-bg); }
+
+    .mark { font-weight: 700; }
+    .mark-quota { color: var(--c-quota); }
+    .mark-exam { color: var(--c-exam); }
+    .mark-weight { color: var(--c-weight); }
+    .mark-date { color: var(--c-date); }
+    .mark-warn { color: var(--c-warn); }
+
+    .legend {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.65rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend i {
+      display: inline-block;
+      min-width: 2.4rem;
+      padding: 0.08rem 0.35rem;
+      font-style: normal;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
     .chip {
       display: inline-block;
       padding: 0.1rem 0.45rem;
@@ -277,6 +364,7 @@
     @media (max-width: 640px) {
       .wrap { width: min(100% - 1.2rem, 980px); padding-top: 1.2rem; }
       .uni-head, .uni-body, header { padding-left: 1rem; padding-right: 1rem; }
+      .fact { grid-template-columns: 3.6rem 1fr; gap: 0.4rem; }
     }
 
     .wrap[hidden] { display: none !important; }
@@ -394,6 +482,15 @@
         </table>
       </div>
       <p class="schedule-note">學校順序依 115 年報名開始日由早到晚排列；部分系所無筆試、僅書審／面試，實際以簡章分則為準。</p>
+      <div class="legend" aria-label="標示說明">
+        <span><i class="k-quota">名額</i>人數／費用</span>
+        <span><i class="k-exam">考試</i>考試方式</span>
+        <span><i class="k-weight">配分</i>權重／門檻</span>
+        <span><i class="k-date">時程</i>日期</span>
+        <span><i class="k-docs">書審</i>繳件</span>
+        <span><i class="k-warn">注意</i>重要規定</span>
+        <span><i class="k-contact">聯絡</i>電話／信箱</span>
+      </div>
     </header>
 
     <!-- 1. 師大（報名最早） -->
@@ -418,13 +515,15 @@
             <div class="prog-title">
               <a href="https://www.ciai.ntnu.edu.tw/index.php/elementor-5842/" target="_blank" rel="noopener">跨域科技產業創新學院－AI 跨域應用研究所</a>
             </div>
-            <ul class="groups">
-              <li>一般生 18 名；無筆試；同分參酌：口試 → 資料審查</li>
-              <li>116考試入學：初試資料審查 50% → 複試口試 50%（通過初試者始得複試）</li>
-              <li>書審必繳：學歷證明、大學歷年成績單（含名次／全班人數）、研究計畫、推薦函至多 2 封、自傳；另可附有利資料</li>
-              <li>口試 116/2/27–2/28；詳細時間地點 2/25 17:00 後公告於本院網頁；口試不另收費</li>
-              <li>缺額得與綠能科技與永續治理研究所相互流用；電話 (02)7749-7033；phw@ntnu.edu.tw</li>
-            </ul>
+            <div class="facts">
+              <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 18 名</span></span></div>
+              <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試資料審查 → 複試口試（通過初試者始得複試）</span></div>
+              <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查 <span class="mark mark-weight">50%</span>＋口試 <span class="mark mark-weight">50%</span>；同分：口試 → 資料審查</span></div>
+              <div class="fact"><span class="k k-docs">書審</span><span class="v">學歷證明、大學歷年成績單（含名次／全班人數）、研究計畫、推薦函至多 2 封、自傳；另可附有利資料</span></div>
+              <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">2/27–2/28</span>；詳細時間地點 <span class="mark mark-date">2/25 17:00</span> 後公告於本院網頁</span></div>
+              <div class="fact"><span class="k k-warn">注意</span><span class="v">缺額得與綠能科技與永續治理研究所相互流用；口試不另收費</span></div>
+              <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)7749-7033；phw@ntnu.edu.tw</span></div>
+            </div>
           </li>
         </ul>
       </div>
@@ -455,13 +554,14 @@
                 <a href="https://igpai.ncu.edu.tw/" target="_blank" rel="noopener">資訊電機學院人工智慧碩士學位學程</a>
                 <span class="chip">人工智慧國際碩士學位學程</span>
               </div>
-              <ul class="groups">
-                <li>簡章正式名稱：人工智慧國際碩士學位學程；不分組一般生 5 名；無筆試；課程全部英語授課</li>
-                <li>116考試入學：初試資料審查（權重 1.0）→ 複試口試（權重 1.5）；同分：口試 → 資料審查</li>
-                <li>審查資料（115/12/10 17:00 前上傳）：大學歷年成績單影本、學程自訂個人資料審查表、英文能力證明、其他有利資料、線上推薦信至少 2 封</li>
-                <li>複試名單 116/2/18 公告；口試 2/23（二）上午，報到工程二館（二期）2F</li>
-                <li>電話 (03)4227151 轉 35011；ncu35011@ncu.edu.tw</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 5 名</span>；正式名稱：人工智慧國際碩士學位學程</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試資料審查 → 複試口試；<span class="mark mark-warn">全部英語授課</span></span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查權重 <span class="mark mark-weight">1.0</span>＋口試權重 <span class="mark mark-weight">1.5</span>；同分：口試 → 資料審查</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">115/12/10 17:00 前上傳：大學歷年成績單影本、學程自訂個人資料審查表、英文能力證明、其他有利資料、線上推薦信至少 2 封</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">複試名單 <span class="mark mark-date">2/18</span> 公告；口試 <span class="mark mark-date">2/23</span> 上午，工程二館（二期）2F</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(03)4227151 轉 35011；ncu35011@ncu.edu.tw</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -492,7 +592,10 @@
               <div class="prog-title">
                 <a href="https://iis.site.nthu.edu.tw/" target="_blank" rel="noopener">資訊安全研究所</a>
               </div>
-              <ul class="groups"><li>116考試入學：書面審查、口試，無筆試</li></ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查、口試</span>；<span class="mark mark-exam">無筆試</span></span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">細節以系所／簡章分則最新公告為準</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -503,15 +606,14 @@
               <div class="prog-title">
                 <a href="https://ieem.site.nthu.edu.tw/" target="_blank" rel="noopener">工業工程與工程管理學系</a>
               </div>
-              <ul class="groups">
-                <li>丙組：人因工程與設計學程（組別代碼 0521；一般生 7 名）</li>
-                <li>116考試入學丙組：資料審查（線上）30%、面試 70%（佔錄取總成績 100%）；英文為門檻（該組考生前 75%，不計分）；無複試</li>
-                <li>考試日 1/27（三）；書審需歷年成績單（含轉學前）及系上指定個人資料表</li>
-                <li>
-                  <a href="https://ieem.site.nthu.edu.tw/" target="_blank" rel="noopener">系所招生資訊</a>
-                  （選「招生資訊」→「招生簡章」；電話 03-5717654）
-                </li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">丙組人因工程與設計學程（0521）；<span class="mark mark-quota">一般生 7 名</span></span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無複試</span>；資料審查（線上）＋面試；英文為門檻</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查 <span class="mark mark-weight">30%</span>＋面試 <span class="mark mark-weight">70%</span>；英文不計分，須該組前 <span class="mark mark-warn">75%</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">歷年成績單（含轉學前）及系上指定個人資料表</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">考試日 <span class="mark mark-date">1/27（三）</span></span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">03-5717654；選「招生資訊」→「招生簡章」</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -541,11 +643,14 @@
               <a href="https://mft.ccu.edu.tw/" target="_blank" rel="noopener">金融科技碩士學位學程</a>
               <span class="chip">代碼 5910</span>
             </div>
-            <ul class="groups">
-              <li>一般生 7 名；無筆試；初試書面審查 50% → 複試口試 50%</li>
-              <li>書審繳交：歷年成績單（含名次證明）、自傳或履歷、研究計畫（含動機）、其他有利資料（英檢、競賽、獲獎等）</li>
-              <li>預計口試日 116/2/12（五）；電話 (05)2720411 轉 24008；https://mft.ccu.edu.tw/</li>
-            </ul>
+            <div class="facts">
+              <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 7 名</span>；代碼 5910</span></div>
+              <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試書面審查 → 複試口試</span></div>
+              <div class="fact"><span class="k k-weight">配分</span><span class="v">書面審查 <span class="mark mark-weight">50%</span>＋口試 <span class="mark mark-weight">50%</span></span></div>
+              <div class="fact"><span class="k k-docs">書審</span><span class="v">歷年成績單（含名次證明）、自傳或履歷、研究計畫（含動機）、其他有利資料</span></div>
+              <div class="fact"><span class="k k-date">時程</span><span class="v">預計口試 <span class="mark mark-date">2/12（五）</span></span></div>
+              <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(05)2720411 轉 24008</span></div>
+            </div>
           </li>
         </ul>
       </div>
@@ -578,45 +683,47 @@
                 <a href="https://mba.ntust.edu.tw/" target="_blank" rel="noopener">管理學院 MBA</a>
                 <span class="chip">代碼 2100</span>
               </div>
-              <ul class="groups">
-                <li>不分組一般生 14 名；報名費 1,500；審查 40%＋口試 60%</li>
-                <li>審查特優可逕取（至多招生名額 50%）；其餘再依審查擇優口試（約其餘名額 2 倍）</li>
-                <li>書審：成績單（含名次）、英文能力證明、個人簡歷（自傳＋讀書計畫各 500–1000 字）、其他有利資料</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 2100；報名費 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">審查＋口試</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">審查 <span class="mark mark-weight">40%</span>＋口試 <span class="mark mark-weight">60%</span>；特優可逕取（至多名額 <span class="mark mark-warn">50%</span>）</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單（含名次）、英文能力證明、個人簡歷（自傳＋讀書計畫各 500–1000 字）、其他有利資料</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://www.im.ntust.edu.tw/" target="_blank" rel="noopener">工業管理系</a>
               </div>
-              <ul class="groups">
-                <li>甲組 0110（作業研究）10 名；乙組 0120（生產管理）9 名；丙組 0130（人因工程）4 名；報名費各 1,500</li>
-                <li>甲組：英文（門檻）＋統計學 50%＋作業研究 50%；乙組：英文（門檻）＋統計學 50%＋生產管理 50%</li>
-                <li>甲、乙組英文不計分，須達全部到考前 75%；計分科目缺考或未達 20 分不予錄取</li>
-                <li>丙組：英文 30%＋人因工程與安全衛生 40%＋口試 30%；筆試擇優口試，筆試未達 20 分不得口試</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">甲 0110 <span class="mark mark-quota">10</span>／乙 0120 <span class="mark mark-quota">9</span>／丙 0130 <span class="mark mark-quota">4</span>；報名費各 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v">甲／乙：<span class="mark mark-exam">筆試</span>；丙：筆試＋口試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">甲：英文門檻＋統計 50%＋作業研究 50%；乙：英文門檻＋統計 50%＋生產管理 50%；丙：英文 30%＋人因工程與安全衛生 40%＋口試 30%</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">甲／乙英文不計分，須到考前 <span class="mark mark-warn">75%</span>；計分科目缺考或未達 20 分不予錄取／不得口試</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://www.cs.ntust.edu.tw/" target="_blank" rel="noopener">資訊管理系</a>
               </div>
-              <ul class="groups">
-                <li>甲組 0910（資訊科技與應用服務）8 名；乙組 0920（智能營運與數位管理）6 名；口試 50%＋審查 50%</li>
-                <li>審查特優可逕取（至多各組名額 50%）；口試約取其餘名額 4 倍；書審含個人簡歷表、成績單、進修計畫書等</li>
-                <li>
-                  <a href="https://www.cs.ntust.edu.tw/p/412-1102-11272.php?Lang=zh-tw" target="_blank" rel="noopener">資訊安全科技與管理碩士班</a>
-                  （代碼 2630；一般生 5 名；口試 50%＋審查 50%；逕取規則同資管系）
-                </li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">甲 0910 <span class="mark mark-quota">8</span>／乙 0920 <span class="mark mark-quota">6</span>；資安班 2630 <span class="mark mark-quota">5</span></span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">口試＋審查</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">口試 <span class="mark mark-weight">50%</span>＋審查 <span class="mark mark-weight">50%</span>；特優可逕取（至多各組名額 50%）</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">個人簡歷表、成績單、進修計畫書等；口試約取其餘名額 4 倍</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v"><a href="https://www.cs.ntust.edu.tw/p/412-1102-11272.php?Lang=zh-tw" target="_blank" rel="noopener">資訊安全科技與管理碩士班</a></span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://www.tm.ntust.edu.tw/" target="_blank" rel="noopener">科技管理研究所</a>
                 <span class="chip">代碼 2000</span>
               </div>
-              <ul class="groups">
-                <li>不分組一般生 7 名；報名費 1,500；口試 55%＋審查 45%</li>
-                <li>審查擇優口試（約招生名額 2.5 倍）；書審含成績單、簡歷、研究方向／讀書計畫（含自傳）、英文能力證明等</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 7 名</span>；代碼 2000；報名費 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">口試＋審查</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">口試 <span class="mark mark-weight">55%</span>＋審查 <span class="mark mark-weight">45%</span>；審查擇優口試（約名額 2.5 倍）</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單、簡歷、研究方向／讀書計畫（含自傳）、英文能力證明等</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -628,20 +735,26 @@
                 <a href="https://innc.ntust.edu.tw/p/412-1111-11490.php?Lang=zh-tw" target="_blank" rel="noopener">智慧製造科技研究所</a>
                 <span class="chip">代碼 5100</span>
               </div>
-              <ul class="groups">
-                <li>一般生 14 名；口試 50%＋審查 50%；審查特優可逕取（至多名額 50%）；推薦信至少 1 封</li>
-                <li>入學後不得轉至本校其他學院系所；電話 02-27301082</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 5100</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">口試＋審查</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">口試 <span class="mark mark-weight">50%</span>＋審查 <span class="mark mark-weight">50%</span>；特優可逕取（至多名額 50%）</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">推薦信至少 1 封；入學後不得轉至本校其他學院系所</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">02-27301082</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://innc.ntust.edu.tw/" target="_blank" rel="noopener">人工智慧跨域科技研究所</a>
                 <span class="chip">代碼 5200</span>
               </div>
-              <ul class="groups">
-                <li>一般生 14 名；審查 60%＋口試 40%；審查特優可逕取（至多名額 50%）；推薦信至少 1 封</li>
-                <li>得不足額錄取；入學後不得轉系所；指導教授須為本所專任教師；NTUST.AI@mail.ntust.edu.tw</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 5200</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">審查＋口試</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">審查 <span class="mark mark-weight">60%</span>＋口試 <span class="mark mark-weight">40%</span>；特優可逕取（至多名額 50%）</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">推薦信至少 1 封；得不足額錄取；入學後不得轉系所；指導教授須為本所專任教師</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">NTUST.AI@mail.ntust.edu.tw</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -652,10 +765,11 @@
               <div class="prog-title">
                 <a href="https://www.gsas.ntust.edu.tw/" target="_blank" rel="noopener">應用科技研究所</a>
               </div>
-              <ul class="groups">
-                <li>甲一／甲二／丙／己一等多組（代碼 2211 等）；多數組採審查 50%＋口試 50%；報名費 1,500</li>
-                <li>書審含成績單、自傳、推薦信至少 2 封、研究方向／讀書計畫等；審查擇優口試</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">甲一／甲二／丙／己一等多組（代碼 2211 等）；報名費 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v">多數組採 <span class="mark mark-exam">審查 50%＋口試 50%</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單、自傳、推薦信至少 2 封、研究方向／讀書計畫等；審查擇優口試</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -684,14 +798,15 @@
             <div class="prog-title">
               <a href="https://aim.ncku.edu.tw/" target="_blank" rel="noopener">人工智慧科技碩士學位學程</a>
             </div>
-            <ul class="groups">
-              <li>一般生代碼 070；考試入學名額 15（另含甄試名額 9）；無筆試</li>
-              <li>116考試入學：審查 50%、面試 50%；同分：面試 → 審查</li>
-              <li>審查通過始通知面試（附錄三列 1/15）；審查特優可免面試逕取，至多招生名額 2/3</li>
-              <li>書審依序上傳：在校成績、資訊能力（AI 軟硬體／大模型／多模態／競賽／程式）、專題研究、外語與其他、讀書計畫（含履歷）、學程考生資料系統、推薦函 2 封</li>
-              <li>錄取後未修畢計算機組織、資料結構、線性代數者，須補修及格始得畢業（限電資學院或工科系開設課程）</li>
-              <li>報到採線上；電話 (06)2757575 轉 62500 轉 14；<a href="https://aim.ncku.edu.tw/" target="_blank" rel="noopener">aim.ncku.edu.tw</a></li>
-            </ul>
+            <div class="facts">
+              <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">考試入學 15 名</span>（另含甄試 9）；代碼 070</span></div>
+              <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；審查 → 面試</span></div>
+              <div class="fact"><span class="k k-weight">配分</span><span class="v">審查 <span class="mark mark-weight">50%</span>＋面試 <span class="mark mark-weight">50%</span>；同分：面試 → 審查；特優可免面試逕取（至多 <span class="mark mark-warn">2/3</span>）</span></div>
+              <div class="fact"><span class="k k-docs">書審</span><span class="v">在校成績、資訊能力、專題研究、外語與其他、讀書計畫（含履歷）、學程考生資料系統、推薦函 2 封</span></div>
+              <div class="fact"><span class="k k-date">時程</span><span class="v">面試約 <span class="mark mark-date">1/15</span>；報到採線上</span></div>
+              <div class="fact"><span class="k k-warn">注意</span><span class="v">未修畢計算機組織、資料結構、線性代數者須補修及格（限電資學院或工科系開設課程）</span></div>
+              <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(06)2757575 轉 62500 轉 14</span></div>
+            </div>
           </li>
         </ul>
       </div>
@@ -724,22 +839,28 @@
                 <a href="https://iem.ntut.edu.tw/" target="_blank" rel="noopener">工業工程與管理系</a>
                 <span class="chip">代碼 4100</span>
               </div>
-              <ul class="groups">
-                <li>不分組一般生 30 名；資料審查 50%＋統計學筆試 50%；筆試日 116/2/21（日）</li>
-                <li>同分依資料審查成績；不須推薦函；書審含成績單、名次證明、自傳（含研究興趣／讀書計畫）等</li>
-                <li>電話 (02)2771-2171 分機 2307；gijong@mail.ntut.edu.tw</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 30 名</span>；代碼 4100</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查＋統計學筆試</span></span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">筆試 <span class="mark mark-weight">50%</span>＋資料審查 <span class="mark mark-weight">50%</span>；同分依資料審查</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單、名次證明、自傳（含研究興趣／讀書計畫）等；不須推薦函</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">2/21（日）</span></span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)2771-2171 分機 2307；gijong@mail.ntut.edu.tw</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://ifm.ntut.edu.tw/" target="_blank" rel="noopener">資訊與財金管理系</a>
                 <span class="chip">代碼 4300</span>
               </div>
-              <ul class="groups">
-                <li>不分組一般生 12 名；初試資料審查 30% → 複試面試 70%；面試日 116/2/18（四）</li>
-                <li>依審查擇優面試；同分依複試；不須推薦函；自傳限 1000 字內</li>
-                <li>1/20 起於招生網站查面試公告；電話 (02)2771-2171 分機 5902</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 12 名</span>；代碼 4300；不分組</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 → 面試</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">初試審查 <span class="mark mark-weight">30%</span>＋複試面試 <span class="mark mark-weight">70%</span>；同分依複試</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">自傳限 1000 字內；不須推薦函；依審查擇優面試</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">面試 <span class="mark mark-date">2/18（四）</span>；1/20 起查面試公告</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)2771-2171 分機 5902</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -751,18 +872,13 @@
                 <a href="https://ifirst.ntut.edu.tw/" target="_blank" rel="noopener">創新前瞻科技研究學院</a>
                 <span class="chip">含下列學程</span>
               </div>
-              <ul class="groups">
-                <li>
-                  <a href="https://ifirst.ntut.edu.tw/p/412-1130-16928.php?Lang=zh-tw" target="_blank" rel="noopener">人工智慧科技碩士學位學程</a>
-                  （代碼 7100；一般生 21 名；限中華民國國籍）
-                </li>
-                <li>AI 學程：審查擇優面試；總成績依面試排序（同分看審查）；面試 2/17（三）；不須推薦函</li>
-                <li>
-                  <a href="https://ifirst.ntut.edu.tw/p/412-1130-16928.php?Lang=zh-tw" target="_blank" rel="noopener">資訊安全碩士學位學程</a>
-                  （代碼 7200；一般生 16 名；限中華民國國籍）
-                </li>
-                <li>資安學程：審查＋面試各 50%；面試 2/19（五）；不須推薦函；1/20 起查面試公告</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">AI 7100 <span class="mark mark-quota">21 名</span>；資安 7200 <span class="mark mark-quota">16 名</span>；均限中華民國國籍</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 → 面試</span>；無筆試；均不須推薦函</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">AI：總成績依面試排序（同分看審查）；資安：審查＋面試各 <span class="mark mark-weight">50%</span></span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">AI 面試 <span class="mark mark-date">2/17</span>；資安面試 <span class="mark mark-date">2/19</span>；1/20 起查公告</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v"><a href="https://ifirst.ntut.edu.tw/p/412-1130-16928.php?Lang=zh-tw" target="_blank" rel="noopener">學程招生頁</a></span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -795,13 +911,13 @@
             <div class="prog-title">
               <a href="https://aiht.nsysu.edu.tw/" target="_blank" rel="noopener">人工智慧健康科技碩士學位學程</a>
             </div>
-            <ul class="groups">
-              <li>不分組一般生 3 名；考試費用 1,300 元；無筆試</li>
-              <li>116考試入學：資料審查 100%；依審查成績高低錄取</li>
-              <li>書審依序上傳：大學歷年成績單（含總成績名次證明；同等學力改附最高學歷成績單）、個人資料（履歷、研究成果／報告或研究計畫、獲獎等）</li>
-              <li>不招收同等學力第七條「專業領域表現具卓越成就者」</li>
-              <li>電話 (07)5252000 分機 4781；aiht@mail.nsysu.edu.tw；https://aiht.nsysu.edu.tw/</li>
-            </ul>
+            <div class="facts">
+              <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 3 名</span>；考試費用 1,300 元</span></div>
+              <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 100%</span>；無筆試</span></div>
+              <div class="fact"><span class="k k-docs">書審</span><span class="v">大學歷年成績單（含總成績名次證明）、個人資料（履歷、研究成果／報告或研究計畫、獲獎等）</span></div>
+              <div class="fact"><span class="k k-warn">注意</span><span class="v">不招收同等學力第七條「專業領域表現具卓越成就者」</span></div>
+              <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(07)5252000 分機 4781；aiht@mail.nsysu.edu.tw</span></div>
+            </div>
           </li>
         </ul>
       </div>
@@ -838,13 +954,15 @@
                 <a href="https://www.cs.nycu.edu.tw/intro/organization?locale=zh" target="_blank" rel="noopener">人工智慧與醫學計算研究所</a>
                 <span class="chip">人工智慧組 195</span>
               </div>
-              <ul class="groups">
-                <li>人工智慧組一般生＋在職 8 名；報名費 1,300；放榜第一梯次；無 2 月入學；初試特優免複試逕取至多 4 名</li>
-                <li>主修：機器學習、深度學習、巨量資料分析技術與應用、電腦視覺分析</li>
-                <li>116考試入學：初試書面審查（權重 1）→複試口試（1/15 五，工程三館；視訊不接受）；總成績書審 0.3、口試 0.7；同分口試→書審</li>
-                <li>必繳：資訊學院招生系統考生資料表、推薦函 2 封、自傳＋讀書計畫（併成 PDF）、大學歷年成績單（含排名）</li>
-                <li>初試放榜 1/11；報到 116/3/16（二）10:00–15:00 工程三館 345；系統 <a href="https://admission.cs.nycu.edu.tw/" target="_blank" rel="noopener">admission.cs.nycu.edu.tw</a></li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生＋在職 8 名</span>；代碼 195；報名費 1,300；逕取至多 4 名</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 → 口試</span>；無筆試；不接受視訊</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">總成績書審 <span class="mark mark-weight">0.3</span>＋口試 <span class="mark mark-weight">0.7</span>；同分：口試 → 書審</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">資訊學院招生系統考生資料表、推薦函 2 封、自傳＋讀書計畫（併成 PDF）、大學歷年成績單（含排名）</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">1/15</span>；初試放榜 <span class="mark mark-date">1/11</span>；報到 <span class="mark mark-date">3/16</span> 工程三館 345</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">主修：機器學習、深度學習、巨量資料分析、電腦視覺；放榜第一梯次；無 2 月入學</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v"><a href="https://admission.cs.nycu.edu.tw/" target="_blank" rel="noopener">admission.cs.nycu.edu.tw</a></span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -857,62 +975,70 @@
                 <a href="https://ms.nycu.edu.tw/" target="_blank" rel="noopener">管理科學系</a>
                 <span class="chip">甲組 254／乙組 255</span>
               </div>
-              <ul class="groups">
-                <li>甲組主修管理決策分析（一般生 19 名）；乙組主修商業智慧分析（一般生 3 名）；報名費各 1,500；放榜第二梯次</li>
-                <li>甲組初試（1/28 四）：微積分／統計學二選一（權重 1，可帶計算機，成績另做標準化）＋英文門檻（254Q 不計分，須前 80% 始具複試資格）</li>
-                <li>乙組初試（1/28 四）：計算機概論（權重 1，不可帶計算機）</li>
-                <li>複試口試（3/18 四，管理一館；權重 2）：3/11 前填考生資料表；當日備履歷、成績單（含排名）及其他有利資料；不接受視訊</li>
-                <li>初試放榜 3/5；報到 116/4/23（五）管理一館；lwc@nycu.edu.tw；03-5712121#57103</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">甲組決策分析 <span class="mark mark-quota">19 名</span>；乙組商業智慧 <span class="mark mark-quota">3 名</span>；報名費各 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">筆試＋口試</span>；放榜第二梯次</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">甲：微積分／統計二選一＋英文門檻（前 <span class="mark mark-warn">80%</span>）；乙：計算機概論；複試口試權重 <span class="mark mark-weight">2</span></span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/28</span>；口試 <span class="mark mark-date">3/18</span>；放榜 <span class="mark mark-date">3/5</span>；報到 <span class="mark mark-date">4/23</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">3/11 前填考生資料表；口試備履歷、成績單（含排名）及其他有利資料；不接受視訊</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">lwc@nycu.edu.tw；03-5712121#57103</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://imf.nycu.edu.tw/" target="_blank" rel="noopener">資訊管理與財務金融學系－財務金融碩士班甲組</a>
                 <span class="chip">財務工程 258</span>
               </div>
-              <ul class="groups">
-                <li>主修財務工程；一般生 6 名；報名費 1,500；線上繳件；放榜第二梯次</li>
-                <li>初試：統計學筆試（2581，權重 1；1/27 三，不可帶計算機）＋書面審查（258R，權重 1）</li>
-                <li>複試口試（258T，權重 1.3；3/19 五，管理一館）；初試放榜 3/5；報到 4/20</li>
-                <li>必繳：考生資料表（系網下載）、學位／在學證明與大學歷年成績單（含排名）、自傳／專題／獲獎等有利資料</li>
-                <li>anniehsieh@nycu.edu.tw；03-5712121#31348 或 03-5131348</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">主修財務工程；<span class="mark mark-quota">一般生 6 名</span>；報名費 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">統計學筆試＋書面審查 → 口試</span></span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">統計學權重 <span class="mark mark-weight">1</span>＋審查權重 <span class="mark mark-weight">1</span>＋口試權重 <span class="mark mark-weight">1.3</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">考生資料表、學位／在學證明與大學歷年成績單（含排名）、自傳／專題／獲獎等</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/27</span>；口試 <span class="mark mark-date">3/19</span>；放榜 <span class="mark mark-date">3/5</span>；報到 <span class="mark mark-date">4/20</span></span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">anniehsieh@nycu.edu.tw；03-5712121#31348 或 03-5131348</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://imf.nycu.edu.tw/" target="_blank" rel="noopener">資訊管理與財務金融學系－財務金融碩士班甲／乙組</a>
                 <span class="chip">資料科學 260 等</span>
               </div>
-              <ul class="groups">
-                <li>甲組主修資料科學；乙組主修財務金融；一般生 4 名；報名費 1,300；線上繳件；放榜第二梯次</li>
-                <li>初試書面審查（權重 1）→ 複試口試（權重 1.3；3/19 五，管理一館）；無筆試</li>
-                <li>初試放榜 3/5；報到 4/20 管理一館；必繳考生資料表（系網下載）、學位／成績單（含排名）、自傳／專題／獲獎等</li>
-                <li>anniehsieh@nycu.edu.tw；03-5712121#31348；https://imf.nycu.edu.tw/</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">甲組資料科學／乙組財務金融；<span class="mark mark-quota">一般生 4 名</span>；報名費 1,300</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 → 口試</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">審查權重 <span class="mark mark-weight">1</span>＋口試權重 <span class="mark mark-weight">1.3</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">考生資料表、學位／成績單（含排名）、自傳／專題／獲獎等</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">3/19</span>；放榜 <span class="mark mark-date">3/5</span>；報到 <span class="mark mark-date">4/20</span></span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">anniehsieh@nycu.edu.tw；03-5712121#31348</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://mot.nycu.edu.tw/" target="_blank" rel="noopener">科技管理研究所</a>
                 <span class="chip">乙組 263</span>
               </div>
-              <ul class="groups">
-                <li>乙組一般生 5 名（建議商管／人文社會）；報名費 1,500；可申請 2 月入學；放榜第二梯次</li>
-                <li>乙組初試（1/28 四）：統計學／經濟學二選一（權重 3，可帶計算機）＋英文（權重 3，不可帶計算機）</li>
-                <li>複試面試（3/19 五，管理一館 7F；口試權重 4）：3/12 前於系所網填資料表；備履歷與有利資料</li>
-                <li>初試放榜 3/5；報到 116/4/28（三）管理一館 703；yaling@nycu.edu.tw；03-5712121#57502</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">乙組一般生 5 名</span>（建議商管／人文社會）；報名費 1,500</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">筆試＋面試</span>；可申請 2 月入學；放榜第二梯次</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">統計／經濟二選一權重 <span class="mark mark-weight">3</span>＋英文權重 <span class="mark mark-weight">3</span>；口試權重 <span class="mark mark-weight">4</span></span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/28</span>；面試 <span class="mark mark-date">3/19</span>；放榜 <span class="mark mark-date">3/5</span>；報到 <span class="mark mark-date">4/28</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">3/12 前於系所網填資料表；備履歷與有利資料</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">yaling@nycu.edu.tw；03-5712121#57502</span></div>
+              </div>
             </li>
             <li>
               <div class="prog-title">
                 <a href="https://iem.nycu.edu.tw/" target="_blank" rel="noopener">工業工程與管理學系</a>
                 <span class="chip">甲組 252</span>
               </div>
-              <ul class="groups">
-                <li>甲組一般生 15 名；報名費 1,400；線上繳件；無 2 月提早錄取；放榜第一梯次</li>
-                <li>甲組筆試（1/28 四）：統計學（權重 1.8）＋作業研究／生產管理／人因工程三選一（權重 1.0）；專業科目可帶計算機</li>
-                <li>英文（252Q）不計分、不可帶計算機；須為該系所組考生（零分除外）前 75% 始具錄取資格</li>
-                <li>專業科目以英文命題，得以中文作答；報到 116/3/15（一）管理二館 103；chunjulin@nycu.edu.tw；03-5131328</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">甲組一般生 15 名</span>；代碼 252；報名費 1,400</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">筆試</span>；無 2 月提早錄取；放榜第一梯次</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">統計學權重 <span class="mark mark-weight">1.8</span>＋作業研究／生產管理／人因工程三選一權重 <span class="mark mark-weight">1.0</span>；英文不計分，須前 <span class="mark mark-warn">75%</span></span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/28</span>；報到 <span class="mark mark-date">3/15</span> 管理二館 103</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">專業科目英文命題可中文作答；專業科目可帶計算機，英文不可</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">chunjulin@nycu.edu.tw；03-5131328</span></div>
+              </div>
             </li>
           </ul>
         </div>
@@ -925,15 +1051,13 @@
                 <a href="https://iais.nycu.edu.tw/admissions2.html" target="_blank" rel="noopener">產學創新研究學院－智能系統研究所碩士班</a>
                 <span class="chip">聯招代碼 850</span>
               </div>
-              <ul class="groups">
-                <li>甲組 851：主修 AI、資料科學、演算法與應用（3 名）</li>
-                <li>乙組 852：主修資安與資工（2 名）</li>
-                <li>丙組 853：主修寬頻通訊與物聯網（2 名）</li>
-                <li>丁組 854：主修 AI 與通訊網路（產學創新組）（3 名）</li>
-                <li>116考試入學：書面審查 100%（850R），無筆試；志願 1–4 個；報名費 1 志願 1,300／2 志願以上 1,800</li>
-                <li>必繳：學位（在學）證明、大學歷年成績單（含排名）、考生就學資料表、自傳（含讀書計畫與動機，1500 字內）</li>
-                <li>選繳：英檢、研究報告／競賽／作品集等；無 2 月提早錄取；放榜第一梯次，報到 116/3/16 新竹光復校區電資中心 101</li>
-              </ul>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">甲 851 <span class="mark mark-quota">3</span>／乙 852 <span class="mark mark-quota">2</span>／丙 853 <span class="mark mark-quota">2</span>／丁 854 <span class="mark mark-quota">3</span>；志願 1–4；報名費 1,300／1,800</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 100%</span>；無筆試</span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">學位（在學）證明、大學歷年成績單（含排名）、考生就學資料表、自傳（含讀書計畫與動機，1500 字內）；選繳英檢／報告／競賽／作品集</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">報到 <span class="mark mark-date">3/16</span> 電資中心 101；放榜第一梯次</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">無 2 月提早錄取</span></div>
+              </div>
             </li>
           </ul>
         </div>

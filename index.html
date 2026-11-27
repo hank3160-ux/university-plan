@@ -399,10 +399,18 @@
 
     .ops-fx {
       position: absolute;
-      inset: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2.85rem;
       pointer-events: none;
       z-index: 2;
       overflow: hidden;
+    }
+
+    .panel-schedule.is-collapsed .ops-fx {
+      bottom: 0;
+      height: auto;
     }
 
     /* 前衛光掃：全高斜面光束＋拖尾，仍走在文字霧層下 */
@@ -1006,10 +1014,10 @@
     .mark-rec { color: var(--c-rec); }
 
     .legend {
-      margin-top: 0.35rem;
+      margin-top: 0.45rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.22rem 0.45rem;
+      gap: 0.28rem 0.55rem;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
       font-size: 0.68rem;
       color: var(--muted);
@@ -1034,6 +1042,21 @@
     .legend i.k-overlap,
     .legend i.k-clash {
       min-width: 3.6rem;
+    }
+
+    /* 展開總時程時：圖例在 HUD 上要可讀、不被光掃蓋住 */
+    .panel-schedule .legend {
+      position: relative;
+      z-index: 4;
+      padding: 0.4rem 0.55rem;
+      color: rgba(215, 251, 243, 0.82);
+      background: rgba(4, 14, 18, 0.88);
+      border: 1px solid rgba(57, 255, 211, 0.2);
+      box-shadow: 0 0 0 1px rgba(79, 211, 255, 0.06) inset;
+    }
+
+    .panel-schedule .legend i {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
     }
 
     .chip {
@@ -1241,6 +1264,8 @@
                   <tr><td><a href="#ntut">8. 北科大</a></td><td>12/1–12/10</td><td>工工筆試 2/21；面試 2/17–2/19</td></tr>
                   <tr><td><a href="#nsysu">9. 中山</a></td><td>12/1–12/16</td><td>乙組統計筆試 2/3；面試 3/8–3/14；產碩（緯創 AI）簡章待公佈</td></tr>
                   <tr><td><a href="#nycu">10. 陽明交大</a></td><td>12/8–12/15</td><td>筆試 1/27–1/28；口試／面試 1/15、3/18–3/19</td></tr>
+                  <tr><td><a href="#ncnu">11. 暨南</a></td><td>12/10–1/13</td><td>無筆試；資管／資工口試 2/12</td></tr>
+                  <tr><td><a href="#ncue">12. 彰師</a></td><td>12/11–12/29</td><td>AI 書審＋面試 3/6；放榜 3/26</td></tr>
                 </tbody>
               </table>
             </div>
@@ -1275,6 +1300,8 @@
         <a href="#ntut" data-school="ntut"><span class="toc-name">8. 北科大</span><span class="toc-badge" hidden></span></a>
         <a href="#nsysu" data-school="nsysu"><span class="toc-name">9. 中山大學</span><span class="toc-badge" hidden></span></a>
         <a href="#nycu" data-school="nycu"><span class="toc-name">10. 陽明交大</span><span class="toc-badge" hidden></span></a>
+        <a href="#ncnu" data-school="ncnu"><span class="toc-name">11. 暨南大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ncue" data-school="ncue"><span class="toc-name">12. 彰化師大</span><span class="toc-badge" hidden></span></a>
       </nav>
       <div class="side-cal" id="side-cal" aria-label="考試行事曆">
         <div class="side-cal-head">
@@ -1956,6 +1983,119 @@
                 <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（考試入學／聯招書審清單未列；甄試另規定）</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">書面審查（無筆試／無口試）；報到 <span class="mark mark-date">3/16</span> 電資中心 101；放榜第一梯次</span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">無 2 月提早錄取</span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+<!-- 11. 暨南大學 -->
+    <section class="uni" id="ncnu">
+      <div class="uni-head">
+        <h2>11. 國立暨南國際大學</h2>
+        <div class="links">
+          <a href="https://www.ncnu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://exam.ncnu.edu.tw/" target="_blank" rel="noopener">考試入學報名系統</a>
+          <a href="https://admission.ncnu.edu.tw/" target="_blank" rel="noopener">招生資訊</a>
+          <a href="https://eip.ncnu.edu.tw/var/file/42/1042/img/761/596003972.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/12/10(四)09:00–116/1/13(三)15:00</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-10T09:00:00+08:00" data-end="2027-01-13T15:00:00+08:00" data-label="報名">計算中…</span>
+          <span><b>書審上傳</b>至 116/1/13(三)17:00</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-10T09:00:00+08:00" data-end="2027-01-13T17:00:00+08:00" data-label="書審上傳">計算中…</span>
+          <span><b>口試</b>資管／資工 116/2/12(五)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-12T08:00:00+08:00" data-end="2027-02-12T18:00:00+08:00" data-label="口試">計算中…</span>
+          <span><b>放榜</b>第 1 梯次 116/2/22(一)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-02-22T00:00:00+08:00" data-end="2027-02-22T23:59:59+08:00" data-label="放榜">計算中…</span>
+        </div>
+      </div>
+      <div class="uni-body">
+        <div class="college">
+          <h3>管理學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://www.im.ncnu.edu.tw/" target="_blank" rel="noopener">資訊管理學系碩士班</a>
+                <span class="chip">考試入學 · 無筆試</span>
+              </div>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">一般生 <span class="mark mark-quota">12 名</span>；在職生 0；報名費 1,300 元</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 → 口試</span>；無筆試；依審查成績擇優參加口試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">書審 <span class="mark mark-weight">40%</span>＋口試 <span class="mark mark-weight">60%</span>；同分：口試 → 書審</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">報名／繳費 <span class="mark mark-date">12/10–1/13 15:00</span>；書審上傳至 <span class="mark mark-date">1/13 17:00</span>；口試 <span class="mark mark-date">2/12(五)</span>（管理學院 4 樓 439）；第 1 梯次放榜 <span class="mark mark-date">2/22</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">網路報名表、學歷證件（應屆：在學證明／學生證正反面＋註冊章）、大學歷年成績單（含班／系名次）、履歷自傳、其他有助資料（專題／語文／論文／得獎／實作等）；合併 PDF（≤10MB）上傳報名系統</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需推薦函</span>（簡章分則未列）</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">成績未達最低錄取標準得不足額錄取；口試日期／地點以系所通知為準</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">049-2910960 轉 4543 賴小姐；im@mail.ncnu.edu.tw；<a href="https://www.im.ncnu.edu.tw/" target="_blank" rel="noopener">im.ncnu.edu.tw</a></span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="college">
+          <h3>科技學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://www.csie.ncnu.edu.tw/" target="_blank" rel="noopener">資訊工程學系碩士班 · 乙組</a>
+                <span class="chip">考試入學 · 無筆試</span>
+              </div>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v">一般生 <span class="mark mark-quota">6 名</span>；在職生 0；報名費 1,300 元；缺額得與甲組互為流用</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 → 口試</span>；無筆試；依審查成績擇優參加口試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">書審 <span class="mark mark-weight">30%</span>＋口試 <span class="mark mark-weight">70%</span>；同分：口試 → 書審</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">報名／繳費 <span class="mark mark-date">12/10–1/13 15:00</span>；書審上傳至 <span class="mark mark-date">1/13 17:00</span>；口試 <span class="mark mark-date">2/12(五)</span>（科技三館 321）；第 1 梯次放榜 <span class="mark mark-date">2/22</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">網路報名表、大學歷年成績單（含名次）、自傳（含報考動機與生涯規劃）、其他有助資料（論文／研究報告／作品等）；合併 PDF（≤10MB）上傳報名系統</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需推薦函</span>（簡章分則未列）</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v"><span class="mark mark-warn">乙組限非資工／資科／資管系</span>報考（招收不具資訊素養者）；入學須補修 6 學分必修；甲／乙為招生分組、學位證書不註記；留學等特殊情形可申請視訊口試</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">049-2915225 或 049-2910960 轉 4132 羅小姐；xllo@ncnu.edu.tw；<a href="https://www.csie.ncnu.edu.tw/" target="_blank" rel="noopener">csie.ncnu.edu.tw</a></span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+<!-- 12. 彰化師大 -->
+    <section class="uni" id="ncue">
+      <div class="uni-head">
+        <h2>12. 國立彰化師範大學（彰師）</h2>
+        <div class="links">
+          <a href="https://www.ncue.edu.tw/" target="_blank" rel="noopener">學校官網</a>
+          <a href="https://aps.ncue.edu.tw/exampg_m/" target="_blank" rel="noopener">考試入學報名系統</a>
+          <a href="https://acadaff.ncue.edu.tw/p/406-1002-35508,r154.php?Lang=zh-tw" target="_blank" rel="noopener">招生組公告／簡章</a>
+          <a href="https://ai.ncue.edu.tw/" target="_blank" rel="noopener">AI 學程</a>
+        </div>
+        <div class="schedule">
+          <span><b>報名</b>115/12/11(五)09:00–12/29(二)17:00</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-11T09:00:00+08:00" data-end="2026-12-29T17:00:00+08:00" data-label="報名">計算中…</span>
+          <span><b>書審上傳</b>至 115/12/29(二)17:00</span>
+          <span class="countdown" data-kind="reg" data-start="2026-12-11T09:00:00+08:00" data-end="2026-12-29T17:00:00+08:00" data-label="書審上傳">計算中…</span>
+          <span><b>面試</b>116/3/6(六)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-03-06T08:00:00+08:00" data-end="2027-03-06T18:00:00+08:00" data-label="面試">計算中…</span>
+          <span><b>放榜</b>116/3/26(五)17:00</span>
+          <span class="countdown" data-kind="exam" data-start="2027-03-26T17:00:00+08:00" data-end="2027-03-26T17:00:00+08:00" data-label="放榜">計算中…</span>
+        </div>
+      </div>
+      <div class="uni-body">
+        <div class="college">
+          <h3>科技學院</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://ai.ncue.edu.tw/" target="_blank" rel="noopener">人工智慧科技應用碩士學位學程</a>
+                <span class="chip">考試入學 · 書審＋面試</span>
+              </div>
+              <div class="facts">
+                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">9 名</span>；報名費 1,300 元（本校校友含應屆 1,000 元）</span></div>
+                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 → 面試</span>；無筆試；所有考生皆須參加面試</span></div>
+                <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查 <span class="mark mark-weight">70%</span>＋面試 <span class="mark mark-weight">30%</span>；同分：面試 → 資料審查</span></div>
+                <div class="fact"><span class="k k-date">時程</span><span class="v">報名 <span class="mark mark-date">12/11–12/29 17:00</span>；繳費帳號至 <span class="mark mark-date">12/28 17:00</span>；書審上傳至 <span class="mark mark-date">12/29 17:00</span>；面試時段／地點 <span class="mark mark-date">3/2</span> 公告於學程網頁；面試 <span class="mark mark-date">3/6(六)</span>；放榜 <span class="mark mark-date">3/26 17:00</span></span></div>
+                <div class="fact"><span class="k k-docs">書審</span><span class="v">大學歷年成績單、攻讀碩士讀書計畫、個人簡歷、自傳、其他有助資料（競賽／榮譽／文章／專題／證照／服務證明等）；上傳網路報名系統</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v">推薦信請配合網路報名系統<span class="mark mark-rec">線上傳送或郵寄</span>繳交</span></div>
+                <div class="fact"><span class="k k-warn">注意</span><span class="v">面試內容為讀書計畫或個人專題研究；僅設彰化考區；若使用 AI 工具撰寫書審，簡章要求避免不實／誤導並保留原始資料；提供研究生獎助學金</span></div>
+                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">04-7232105#7032；lc7799@cc.ncue.edu.tw；師大校區（彰化市師大路二號）；<a href="https://ai.ncue.edu.tw/" target="_blank" rel="noopener">ai.ncue.edu.tw</a></span></div>
               </div>
             </li>
           </ul>

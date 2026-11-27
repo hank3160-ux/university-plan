@@ -36,6 +36,10 @@
       --c-docs-bg: #eef1e6;
       --c-contact: #5f584e;
       --c-contact-bg: #f0ebe3;
+      --c-overlap: #0b5f7a;
+      --c-overlap-bg: #e3f1f5;
+      --c-clash: #7a3b5c;
+      --c-clash-bg: #f5e7ef;
     }
 
     * { box-sizing: border-box; }
@@ -291,9 +295,14 @@
 
     .fact {
       display: grid;
-      grid-template-columns: 4.2rem 1fr;
+      grid-template-columns: 4.6rem 1fr;
       gap: 0.55rem;
       align-items: start;
+    }
+
+    .conflict-facts {
+      flex-basis: 100%;
+      margin-top: 0.35rem;
     }
 
     .fact .k {
@@ -320,6 +329,8 @@
     .k-warn { color: var(--c-warn); background: var(--c-warn-bg); }
     .k-docs { color: var(--c-docs); background: var(--c-docs-bg); }
     .k-contact { color: var(--c-contact); background: var(--c-contact-bg); }
+    .k-overlap { color: var(--c-overlap); background: var(--c-overlap-bg); }
+    .k-clash { color: var(--c-clash); background: var(--c-clash-bg); }
 
     .mark { font-weight: 700; }
     .mark-quota { color: var(--c-quota); }
@@ -327,6 +338,8 @@
     .mark-weight { color: var(--c-weight); }
     .mark-date { color: var(--c-date); }
     .mark-warn { color: var(--c-warn); }
+    .mark-overlap { color: var(--c-overlap); }
+    .mark-clash { color: var(--c-clash); }
 
     .legend {
       margin-top: 1rem;
@@ -354,6 +367,11 @@
       text-align: center;
     }
 
+    .legend i.k-overlap,
+    .legend i.k-clash {
+      min-width: 3.6rem;
+    }
+
     .chip {
       display: inline-block;
       padding: 0.1rem 0.45rem;
@@ -375,7 +393,7 @@
     @media (max-width: 640px) {
       .wrap { width: min(100% - 1.2rem, 980px); padding-top: 1.2rem; }
       .uni-head, .uni-body, header { padding-left: 1rem; padding-right: 1rem; }
-      .fact { grid-template-columns: 3.6rem 1fr; gap: 0.4rem; }
+      .fact { grid-template-columns: 4rem 1fr; gap: 0.4rem; }
     }
 
     .wrap[hidden] { display: none !important; }
@@ -485,13 +503,13 @@
             <tr><td><a href="#ncu">2. 中央</a></td><td>11/17(二)–11/26(四)</td><td>無筆試；口試 2/23(二) 上午</td></tr>
             <tr><td>台聯大</td><td>11/20(五)–11/23(一)</td><td>校級筆試 1/30(六)–1/31(日)；本頁智能系統為書面審查（無筆試）</td></tr>
             <tr><td><a href="#nchu">3. 中興</a></td><td>11/24(二)–12/8(二)</td><td>無筆試；面試 3/11(四)</td></tr>
-            <tr><td><a href="#nthu">4. 清大</a></td><td>11/24(二)–12/1(二)</td><td>工工乙筆試／丙審查＋面試：1/27(三)；資安口試 3/11–3/18 擇一日</td></tr>
+            <tr><td><a href="#nthu">4. 清大</a></td><td>11/24(二)–12/1(二)</td><td>工工丙審查＋面試：1/27(三)</td></tr>
             <tr><td><a href="#ccu">5. 中正</a></td><td>11/26(四)–12/8(二)</td><td>無筆試；口試預計 2/12(五)</td></tr>
             <tr><td><a href="#ntust">6. 台科大</a></td><td>11/27(五)–12/10(四)</td><td>工管筆試 1/25(一)；有口試系所口試 2/19(五)–2/21(日)（2/15 公告時間）</td></tr>
             <tr><td><a href="#ncku">7. 成大</a></td><td>11/30(一)–12/7(一)</td><td>無筆試；面試 1/15(五)</td></tr>
             <tr><td><a href="#ntou">8. 海大</a></td><td>11/30(一)–2/1(一)</td><td>航管筆試 3/6(六) 10:00–11:30；通訊導航僅資料審查（無筆試／無面試）</td></tr>
             <tr><td><a href="#ntut">9. 北科大</a></td><td>12/1(二)–12/10(四)</td><td>工工筆試 2/21(日)；面試 AI 2/17(三)、資財 2/18(四)、資安 2/19(五)</td></tr>
-            <tr><td><a href="#nsysu">10. 中山</a></td><td>12/1(二)–12/16(三)</td><td>AI健康僅資料審查；數金／國資乙組統計學筆試 2/3(三)，面試 3/8–3/14</td></tr>
+            <tr><td><a href="#nsysu">10. 中山</a></td><td>12/1(二)–12/16(三)</td><td>數金／國資乙組統計學筆試 2/3(三)，面試 3/8–3/14</td></tr>
             <tr><td><a href="#nycu">11. 陽明交大</a></td><td>12/8(二)–12/15(二)</td><td>筆試：財工甲 1/27、管科／科管／工工 1/28；口試／面試：AI 醫計 1/15、管科 3/18、財工甲／財工丙／科管 3/19；第二梯次正式放榜 3/31；智能系統書面審查（無筆試）</td></tr>
           </tbody>
         </table>
@@ -505,6 +523,8 @@
         <span><i class="k-docs">書審</i>繳件</span>
         <span><i class="k-warn">注意</i>重要規定</span>
         <span><i class="k-contact">聯絡</i>電話／信箱</span>
+        <span><i class="k-overlap">同時報名</i>報名期間重疊／目前開放中之學校</span>
+        <span><i class="k-clash">同日考試</i>口試或筆試日期重疊之學校系所</span>
       </div>
     </header>
 
@@ -636,49 +656,14 @@
         <div class="schedule">
           <span><b>報名</b>115/11/24(二)–12/1(二)</span>
           <span class="countdown" data-kind="reg" data-start="2026-11-24T10:00:00+08:00" data-end="2026-12-01T17:00:00+08:00" data-label="報名">計算中…</span>
-          <span><b>本頁系所</b>工工 1/27(三)；資安口試 3/11–3/18</span>
-          <span class="countdown" data-kind="exam" data-start="2027-01-27T08:00:00+08:00" data-end="2027-01-27T18:00:00+08:00" data-label="工工考試">計算中…</span>
+          <span><b>本頁系所</b>工工丙審查＋面試 1/27(三)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-27T08:00:00+08:00" data-end="2027-01-27T18:00:00+08:00" data-label="工工丙考試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
         <div class="college">
-          <h3>電機資訊學院</h3>
-          <ul class="programs">
-            <li>
-            <li>
-              <div class="prog-title">
-                <a href="https://iis.site.nthu.edu.tw/" target="_blank" rel="noopener">資訊安全研究所碩士班</a>
-                <span class="chip">代碼 0526</span>
-              </div>
-              <div class="facts">
-                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 10 名</span>；代碼 0526</span></div>
-                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試資料審查（線上）→ 複試口試</span></div>
-                <div class="fact"><span class="k k-weight">配分</span><span class="v">初試審查佔錄取總成績 <span class="mark mark-weight">50%</span>；複試口試佔 <span class="mark mark-weight">50%</span></span></div>
-                <div class="fact"><span class="k k-docs">書審</span><span class="v">大學歷年成績單（轉學生含轉學前）、學習研究計畫書（自訂限 2 頁）、自傳、個人資料表（所網指定格式）、其他有利資料（專題／著作／語文／獎學金／社團／證照／專利／競賽等）</span></div>
-                <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">3/11–3/18</span> 擇一日辦理（詳細時間公告於所網）</span></div>
-                <div class="fact"><span class="k k-warn">注意</span><span class="v">錄取後不得申請轉所至資工系碩士班或資訊系統與應用研究所</span></div>
-                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">03-5715131 轉 33137；<a href="https://iis.site.nthu.edu.tw/" target="_blank" rel="noopener">iis.site.nthu.edu.tw</a></span></div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="college">
           <h3>工學院</h3>
           <ul class="programs">
-            <li>
-              <div class="prog-title">
-                <a href="https://ieem.site.nthu.edu.tw/" target="_blank" rel="noopener">工業工程與工程管理學系－乙組</a>
-                <span class="chip">智慧製造與營運管理 0520</span>
-              </div>
-              <div class="facts">
-                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 0520</span></div>
-                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">筆試</span>；無複試；考科：統計學、生產管理、英文</span></div>
-                <div class="fact"><span class="k k-weight">配分</span><span class="v">統計學、生產管理各 100 分（合為初試／錄取總成績 <span class="mark mark-weight">100%</span>）；英文不計分，須全組到考前 <span class="mark mark-warn">75%</span>（含）</span></div>
-                <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/27（三）</span>；無複試</span></div>
-                <div class="fact"><span class="k k-warn">注意</span><span class="v">各科皆不得使用計算器；錄取後須依學程規定修課</span></div>
-                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">03-5717654；選「招生資訊」→「入學簡章」</span></div>
-              </div>
-            </li>
             <li>
               <div class="prog-title">
                 <a href="https://ieem.site.nthu.edu.tw/" target="_blank" rel="noopener">工業工程與工程管理學系－丙組</a>
@@ -759,19 +744,6 @@
         <div class="college">
           <h3>管理學院</h3>
           <ul class="programs">
-            <li>
-              <div class="prog-title">
-                <a href="https://mba.ntust.edu.tw/" target="_blank" rel="noopener">管理學院 MBA</a>
-                <span class="chip">代碼 2100</span>
-              </div>
-              <div class="facts">
-                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 2100；報名費 1,500</span></div>
-                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">審查＋口試</span>；無筆試</span></div>
-                <div class="fact"><span class="k k-weight">配分</span><span class="v">審查 <span class="mark mark-weight">40%</span>＋口試 <span class="mark mark-weight">60%</span>；特優可逕取（至多名額 <span class="mark mark-warn">50%</span>）</span></div>
-                <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單（含名次）、英文能力證明、個人簡歷（自傳＋讀書計畫各 500–1000 字）、其他有利資料</span></div>
-                <div class="fact"><span class="k k-date">時程</span><span class="v">無筆試；口試 <span class="mark mark-date">2/19(五)–2/21(日)</span> 系所自訂（<span class="mark mark-date">2/15 11:00</span> 公告名單與時間）</span></div>
-              </div>
-            </li>
             <li>
               <div class="prog-title">
                 <a href="https://www.im.ntust.edu.tw/" target="_blank" rel="noopener">工業管理系</a>
@@ -1043,27 +1015,10 @@
           <span><b>筆試</b>乙組統計學 116/2/3(三)</span>
           <span class="countdown" data-kind="exam" data-start="2027-02-03T00:00:00+08:00" data-end="2027-02-03T23:59:59+08:00" data-label="筆試">計算中…</span>
           <span><b>面試</b>數金／國資 116/3/8(一)–3/14(日)</span>
+          <span class="countdown" data-kind="exam" data-start="2027-03-08T08:00:00+08:00" data-end="2027-03-14T18:00:00+08:00" data-label="數金國資面試">計算中…</span>
         </div>
       </div>
       <div class="uni-body">
-        <div class="college">
-          <h3>醫學院</h3>
-          <ul class="programs">
-            <li>
-              <div class="prog-title">
-                <a href="https://aiht.nsysu.edu.tw/" target="_blank" rel="noopener">人工智慧健康科技碩士學位學程</a>
-              </div>
-              <div class="facts">
-                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 3 名</span>；考試費用 1,300 元</span></div>
-                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 100%</span>；無筆試</span></div>
-                <div class="fact"><span class="k k-docs">書審</span><span class="v">大學歷年成績單（含總成績名次證明）、個人資料（履歷、研究成果／報告或研究計畫、獲獎等）</span></div>
-                <div class="fact"><span class="k k-warn">注意</span><span class="v">不招收同等學力第七條「專業領域表現具卓越成就者」</span></div>
-                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(07)5252000 分機 4781；aiht@mail.nsysu.edu.tw</span></div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
         <div class="college">
           <h3>國際金融研究學院</h3>
           <ul class="programs">
@@ -1120,6 +1075,7 @@
           <span><b>本頁筆試</b>財工 1/27(三)；管科／科管／工工 1/28(四)</span>
           <span class="countdown" data-kind="exam" data-start="2027-01-27T08:00:00+08:00" data-end="2027-01-28T18:00:00+08:00" data-label="筆試">計算中…</span>
           <span><b>本頁口試</b>AI 醫計 1/15；管科 3/18；財工／資科／科管 3/19</span>
+          <span class="countdown" data-kind="exam" data-start="2027-01-15T08:00:00+08:00" data-end="2027-01-15T18:00:00+08:00" data-label="AI醫計口試">計算中…</span>
           <span class="countdown" data-kind="exam" data-start="2027-03-18T08:00:00+08:00" data-end="2027-03-19T18:00:00+08:00" data-label="口試">計算中…</span>
           <span><b>台聯大報名</b>115/11/20(五)–11/23(一)</span>
           <span class="countdown" data-kind="reg" data-start="2026-11-20T09:00:00+08:00" data-end="2026-11-23T17:00:00+08:00" data-label="台聯大報名">計算中…</span>
@@ -1331,7 +1287,160 @@
         }
       }
 
+      function shortSchoolName(h2Text) {
+        var m = h2Text.match(/（([^）]+)）/);
+        if (m) return m[1].replace(/^陽明交大.*/, "陽明交大");
+        return h2Text.replace(/^\d+\.\s*/, "").replace(/^國立/, "").trim();
+      }
+
+      function dayKey(ms) {
+        var d = new Date(ms);
+        var y = d.getFullYear();
+        var m = String(d.getMonth() + 1).padStart(2, "0");
+        var day = String(d.getDate()).padStart(2, "0");
+        return y + "-" + m + "-" + day;
+      }
+
+      function daySet(start, end) {
+        var set = {};
+        var t = Date.parse(dayKey(start) + "T00:00:00+08:00");
+        var last = Date.parse(dayKey(end) + "T00:00:00+08:00");
+        if (!isFinite(t) || !isFinite(last)) return set;
+        while (t <= last) {
+          set[dayKey(t)] = true;
+          t += 86400000;
+        }
+        return set;
+      }
+
+      function rangesOverlap(a0, a1, b0, b1) {
+        return a0 <= b1 && b0 <= a1;
+      }
+
+      function fmtMD(ms) {
+        var d = new Date(ms);
+        return (d.getMonth() + 1) + "/" + d.getDate();
+      }
+
+      function fmtRange(start, end) {
+        var a = fmtMD(start);
+        var b = fmtMD(end);
+        return a === b ? a : a + "–" + b;
+      }
+
+      function intersectDays(a, b) {
+        var out = [];
+        for (var k in a) if (a[k] && b[k]) out.push(k);
+        out.sort();
+        return out;
+      }
+
+      function buildConflictFacts() {
+        var unis = Array.prototype.slice.call(document.querySelectorAll(".uni"));
+        var schools = unis.map(function (uni) {
+          var h2 = uni.querySelector("h2");
+          var shortName = shortSchoolName(h2 ? h2.textContent : uni.id);
+          var regEl = uni.querySelector('.countdown[data-kind="reg"][data-label="報名"]') ||
+            uni.querySelector('.countdown[data-kind="reg"]');
+          var regStart = regEl ? Date.parse(regEl.getAttribute("data-start") || "") : NaN;
+          var regEnd = regEl ? Date.parse(regEl.getAttribute("data-end") || "") : NaN;
+          var exams = [];
+          var examNodes = uni.querySelectorAll('.countdown[data-kind="exam"]');
+          for (var i = 0; i < examNodes.length; i++) {
+            var el = examNodes[i];
+            var label = el.getAttribute("data-label") || "考試";
+            if (/台聯大/.test(label)) continue;
+            var s = Date.parse(el.getAttribute("data-start") || "");
+            var e = Date.parse(el.getAttribute("data-end") || "");
+            if (!isFinite(s) || !isFinite(e)) continue;
+            exams.push({ label: label, start: s, end: e, days: daySet(s, e) });
+          }
+          return {
+            el: uni,
+            id: uni.id,
+            shortName: shortName,
+            regStart: regStart,
+            regEnd: regEnd,
+            exams: exams
+          };
+        });
+
+        var now = Date.now();
+        schools.forEach(function (school) {
+          var head = school.el.querySelector(".uni-head");
+          if (!head) return;
+          var box = head.querySelector(".conflict-facts");
+          if (!box) {
+            box = document.createElement("div");
+            box.className = "facts conflict-facts";
+            box.setAttribute("aria-label", "報名與考試撞期提醒");
+            box.innerHTML =
+              '<div class="fact"><span class="k k-overlap">同時報名</span><span class="v overlap-reg">計算中…</span></div>' +
+              '<div class="fact"><span class="k k-clash">同日考試</span><span class="v overlap-exam">計算中…</span></div>';
+            var schedule = head.querySelector(".schedule");
+            if (schedule) schedule.after(box);
+            else head.appendChild(box);
+          }
+
+          var regParts = [];
+          var openNow = [];
+          if (isFinite(school.regStart) && isFinite(school.regEnd)) {
+            schools.forEach(function (other) {
+              if (other.id === school.id) return;
+              if (!isFinite(other.regStart) || !isFinite(other.regEnd)) return;
+              if (!rangesOverlap(school.regStart, school.regEnd, other.regStart, other.regEnd)) return;
+              var tip = other.shortName + "（" + fmtRange(other.regStart, other.regEnd) + "）";
+              regParts.push(tip);
+              if (now >= other.regStart && now <= other.regEnd) openNow.push(other.shortName);
+            });
+          }
+
+          var regHtml;
+          if (!regParts.length) {
+            regHtml = "無重疊學校";
+          } else {
+            regHtml = '<span class="mark mark-overlap">報名重疊</span> ' + regParts.join("、");
+            if (isFinite(school.regStart) && isFinite(school.regEnd) && now >= school.regStart && now <= school.regEnd) {
+              var peers = openNow.length ? openNow.join("、") : "僅本校";
+              regHtml += '；<span class="mark mark-overlap">目前開放中</span> ' + peers;
+            }
+          }
+          box.querySelector(".overlap-reg").innerHTML = regHtml;
+
+          var clashParts = [];
+          schools.forEach(function (other) {
+            if (other.id === school.id) return;
+            other.exams.forEach(function (oe) {
+              school.exams.forEach(function (se) {
+                var days = intersectDays(se.days, oe.days);
+                if (!days.length) return;
+                var dayText = days.map(function (k) {
+                  var p = k.split("-");
+                  return Number(p[1]) + "/" + Number(p[2]);
+                }).join("、");
+                clashParts.push(
+                  other.shortName + "・" + oe.label + "（與本校" + se.label + "同日：" + dayText + "）"
+                );
+              });
+            });
+          });
+
+          // de-dupe while preserving order
+          var seen = {};
+          clashParts = clashParts.filter(function (x) {
+            if (seen[x]) return false;
+            seen[x] = true;
+            return true;
+          });
+
+          box.querySelector(".overlap-exam").innerHTML = clashParts.length
+            ? '<span class="mark mark-clash">注意撞期</span> ' + clashParts.join("；")
+            : "無同日筆試／口試";
+        });
+      }
+
       tickCountdowns();
+      buildConflictFacts();
       setInterval(tickCountdowns, 1000);
     })();
   </script>

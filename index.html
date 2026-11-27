@@ -13,33 +13,36 @@
   <title>研究所志願整理｜資工／資管／AI 相關</title>
   <style>
     :root {
-      --bg: #f3f0ea;
-      --paper: #fffdf8;
-      --ink: #1c1a16;
-      --muted: #5f584e;
-      --line: #d9d1c4;
-      --accent: #0f5c4c;
-      --accent-soft: #dceee8;
-      --chip: #efe8dc;
-      --shadow: 0 18px 40px rgba(40, 32, 18, 0.08);
-      --c-quota: #0f5c4c;
-      --c-quota-bg: #e4f2ed;
-      --c-exam: #1e4d78;
-      --c-exam-bg: #e6eef6;
-      --c-weight: #8a4b16;
-      --c-weight-bg: #f6ebdd;
-      --c-date: #5a3d7a;
-      --c-date-bg: #efe8f5;
-      --c-warn: #8f2f2a;
-      --c-warn-bg: #f6e6e4;
-      --c-docs: #4f5d3a;
-      --c-docs-bg: #eef1e6;
-      --c-contact: #5f584e;
-      --c-contact-bg: #f0ebe3;
-      --c-overlap: #0b5f7a;
-      --c-overlap-bg: #e3f1f5;
-      --c-clash: #7a3b5c;
-      --c-clash-bg: #f5e7ef;
+      --bg: #efe9df;
+      --paper: #fffcf7;
+      --ink: #141210;
+      --muted: #534c43;
+      --line: #d0c7b8;
+      --accent: #0a4f41;
+      --accent-soft: #d2ebe3;
+      --chip: #ebe3d6;
+      --shadow: 0 14px 32px rgba(32, 26, 14, 0.1);
+      --c-quota: #0a4f41;
+      --c-quota-bg: #d8eee6;
+      --c-exam: #164572;
+      --c-exam-bg: #dce8f4;
+      --c-weight: #8a4308;
+      --c-weight-bg: #f3e2cc;
+      --c-date: #5a2f8a;
+      --c-date-bg: #ebe0f6;
+      --c-warn: #9a2420;
+      --c-warn-bg: #f6ddd9;
+      --c-docs: #42522e;
+      --c-docs-bg: #e5ebd8;
+      --c-contact: #4f483f;
+      --c-contact-bg: #ebe4da;
+      --c-overlap: #0a5870;
+      --c-overlap-bg: #d5eef5;
+      --c-clash: #8a234e;
+      --c-clash-bg: #f6dce8;
+      --c-open: #7a4a05;
+      --c-open-bg: #f3e0b8;
+      --c-open-line: #d9b86a;
     }
 
     * { box-sizing: border-box; }
@@ -159,27 +162,27 @@
     }
 
     .toc-badge.is-open {
-      color: #6b4a12;
-      background: #f4ead3;
-      border-color: #e2d2ad;
+      color: var(--c-open);
+      background: var(--c-open-bg);
+      border-color: var(--c-open-line);
     }
 
     .toc-badge.is-soon {
       color: var(--c-date);
       background: var(--c-date-bg);
-      border-color: #d8cce6;
+      border-color: #c9b4e0;
     }
 
     .toc-badge.is-done {
-      color: var(--muted);
-      background: #f0ebe3;
-      border-color: var(--line);
+      color: #6a635a;
+      background: #e8e2d8;
+      border-color: #cdc4b6;
     }
 
     .toc-badge.is-idle {
       color: var(--accent);
-      background: #e8f3ef;
-      border-color: #c5ddd5;
+      background: #dff0e9;
+      border-color: #a9d0c3;
     }
 
     .side-cal {
@@ -250,23 +253,28 @@
       font-family: inherit;
     }
 
-    .side-cal-day.is-muted { color: #b5aea3; }
+    .side-cal-day.is-muted { color: #b0a89c; }
     .side-cal-day.is-today {
       border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
       font-weight: 700;
     }
     .side-cal-day.has-reg {
-      background: var(--c-overlap-bg);
-      color: var(--c-overlap);
+      background: var(--c-open-bg);
+      color: var(--c-open);
+      border-color: var(--c-open-line);
+      font-weight: 650;
     }
     .side-cal-day.has-exam {
       background: var(--c-date-bg);
       color: var(--c-date);
+      border-color: #c9b4e0;
       font-weight: 700;
     }
     .side-cal-day.has-reg.has-exam {
-      background: linear-gradient(135deg, var(--c-overlap-bg) 50%, var(--c-date-bg) 50%);
+      background: linear-gradient(135deg, var(--c-open-bg) 48%, var(--c-date-bg) 52%);
       color: var(--ink);
+      border-color: var(--accent);
     }
     .side-cal-day.has-event {
       cursor: pointer;
@@ -295,8 +303,8 @@
       border: 1px solid var(--line);
     }
 
-    .side-cal-legend .lg-reg { background: var(--c-overlap-bg); }
-    .side-cal-legend .lg-exam { background: var(--c-date-bg); }
+    .side-cal-legend .lg-reg { background: var(--c-open-bg); border-color: var(--c-open-line); }
+    .side-cal-legend .lg-exam { background: var(--c-date-bg); border-color: #c9b4e0; }
 
     .side-cal-list {
       margin-top: 0.4rem;
@@ -332,11 +340,12 @@
 
     .panel-schedule {
       flex: 0 0 auto;
-      padding: 0.45rem 0.75rem 0.45rem;
-      background: rgba(255, 253, 248, 0.98);
+      padding: 0.5rem 0.8rem;
+      background: #fffcf7;
       border-bottom: 1px solid var(--line);
       overflow: hidden;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      box-shadow: 0 1px 0 rgba(40, 32, 18, 0.04);
     }
 
     .ops-bar {
@@ -349,9 +358,10 @@
     .next-deadlines {
       flex: 1;
       min-width: 0;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       line-height: 1.4;
       color: var(--ink);
+      font-weight: 500;
     }
 
     .next-deadlines a {
@@ -374,15 +384,15 @@
     }
 
     .next-deadlines .tag-reg {
-      color: #6b4a12;
-      background: #f4ead3;
-      border-color: #e2d2ad;
+      color: var(--c-open);
+      background: var(--c-open-bg);
+      border-color: var(--c-open-line);
     }
 
     .next-deadlines .tag-exam {
       color: var(--c-date);
       background: var(--c-date-bg);
-      border-color: #d8cce6;
+      border-color: #c9b4e0;
     }
 
     .schedule-toggle {
@@ -492,21 +502,23 @@
 
     .countdown {
       color: var(--accent);
-      border-color: #c5ddd5;
+      border-color: #a9d0c3;
       background: var(--accent-soft);
       font-variant-numeric: tabular-nums;
+      font-weight: 650;
     }
 
     .countdown.is-open {
-      color: #6b4a12;
-      border-color: #e2d2ad;
-      background: #f4ead3;
+      color: var(--c-open);
+      border-color: var(--c-open-line);
+      background: var(--c-open-bg);
     }
 
     .countdown.is-done {
-      color: var(--muted);
-      background: #f0ebe3;
-      border-color: var(--line);
+      color: #6a635a;
+      background: #e8e2d8;
+      border-color: #cdc4b6;
+      font-weight: 500;
     }
 
     .schedule-board {
@@ -653,6 +665,7 @@
       text-align: center;
       line-height: 1.4;
       white-space: nowrap;
+      border: 1px solid rgba(20, 18, 16, 0.08);
     }
 
     .fact .v {

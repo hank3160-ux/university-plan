@@ -40,6 +40,8 @@
       --c-overlap-bg: #d5eef5;
       --c-clash: #8a234e;
       --c-clash-bg: #f6dce8;
+      --c-rec: #6e3b12;
+      --c-rec-bg: #f3e5d3;
       --c-open: #7a4a05;
       --c-open-bg: #f3e0b8;
       --c-open-line: #d9b86a;
@@ -75,7 +77,7 @@
       inset: 0;
       display: grid;
       grid-template-columns: 15rem minmax(0, 1fr);
-      grid-template-rows: minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr);
       width: 100%;
       height: 100%;
       margin: 0;
@@ -339,6 +341,7 @@
     }
 
     .panel-schedule {
+      grid-column: 1 / -1;
       flex: 0 0 auto;
       padding: 0.5rem 0.8rem;
       background: #fffcf7;
@@ -346,18 +349,23 @@
       overflow: hidden;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
       box-shadow: 0 1px 0 rgba(40, 32, 18, 0.04);
+      z-index: 2;
     }
 
     .ops-bar {
+      position: relative;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.55rem;
       min-height: 1.7rem;
+      padding-right: 5.5rem;
     }
 
     .next-deadlines {
-      flex: 1;
+      flex: 0 1 auto;
       min-width: 0;
+      text-align: center;
       font-size: 0.8rem;
       line-height: 1.4;
       color: var(--ink);
@@ -396,6 +404,10 @@
     }
 
     .schedule-toggle {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
       flex: 0 0 auto;
       padding: 0.28rem 0.55rem;
       border: 1px solid #c5ddd5;
@@ -683,6 +695,7 @@
     .k-contact { color: var(--c-contact); background: var(--c-contact-bg); }
     .k-overlap { color: var(--c-overlap); background: var(--c-overlap-bg); }
     .k-clash { color: var(--c-clash); background: var(--c-clash-bg); }
+    .k-rec { color: var(--c-rec); background: var(--c-rec-bg); }
 
     .mark { font-weight: 700; }
     .mark-quota { color: var(--c-quota); }
@@ -692,6 +705,7 @@
     .mark-warn { color: var(--c-warn); }
     .mark-overlap { color: var(--c-overlap); }
     .mark-clash { color: var(--c-clash); }
+    .mark-rec { color: var(--c-rec); }
 
     .legend {
       margin-top: 0.35rem;
@@ -755,7 +769,10 @@
     @media (max-width: 720px) {
       .wrap {
         grid-template-columns: 1fr;
-        grid-template-rows: auto minmax(0, 1fr);
+        grid-template-rows: auto auto minmax(0, 1fr);
+      }
+      .panel-schedule {
+        grid-column: 1;
       }
       .sidebar {
         border-right: 0;
@@ -862,41 +879,7 @@
   </div>
 
   <div class="wrap" id="app" hidden>
-    <aside class="sidebar" aria-label="學校導覽">
-      <h1>研究所志願整理</h1>
-      <p class="brand-sub">戰情室 · 10 校</p>
-      <nav class="toc" aria-label="學校目錄">
-        <a href="#ntnu" data-school="ntnu"><span class="toc-name">1. 臺灣師大</span><span class="toc-badge" hidden></span></a>
-        <a href="#nchu" data-school="nchu"><span class="toc-name">2. 中興大學</span><span class="toc-badge" hidden></span></a>
-        <a href="#nthu" data-school="nthu"><span class="toc-name">3. 清華大學</span><span class="toc-badge" hidden></span></a>
-        <a href="#ccu" data-school="ccu"><span class="toc-name">4. 中正大學</span><span class="toc-badge" hidden></span></a>
-        <a href="#ntust" data-school="ntust"><span class="toc-name">5. 台科大</span><span class="toc-badge" hidden></span></a>
-        <a href="#ncku" data-school="ncku"><span class="toc-name">6. 成功大學</span><span class="toc-badge" hidden></span></a>
-        <a href="#ntou" data-school="ntou"><span class="toc-name">7. 海洋大學</span><span class="toc-badge" hidden></span></a>
-        <a href="#ntut" data-school="ntut"><span class="toc-name">8. 北科大</span><span class="toc-badge" hidden></span></a>
-        <a href="#nsysu" data-school="nsysu"><span class="toc-name">9. 中山大學</span><span class="toc-badge" hidden></span></a>
-        <a href="#nycu" data-school="nycu"><span class="toc-name">10. 陽明交大</span><span class="toc-badge" hidden></span></a>
-      </nav>
-      <div class="side-cal" id="side-cal" aria-label="考試行事曆">
-        <div class="side-cal-head">
-          <button type="button" id="cal-prev" aria-label="上個月">‹</button>
-          <strong id="cal-title">—</strong>
-          <button type="button" id="cal-next" aria-label="下個月">›</button>
-        </div>
-        <div class="side-cal-week" aria-hidden="true">
-          <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
-        </div>
-        <div class="side-cal-grid" id="cal-grid"></div>
-        <div class="side-cal-legend">
-          <span><i class="lg-reg"></i>報名</span>
-          <span><i class="lg-exam"></i>筆試／口試</span>
-        </div>
-        <div class="side-cal-list" id="cal-list">點選有色日期查看行程</div>
-      </div>
-    </aside>
-
-    <div class="main">
-      <section class="panel-schedule is-collapsed" id="panel-schedule" aria-label="總時程">
+          <section class="panel-schedule is-collapsed" id="panel-schedule" aria-label="總時程">
         <div class="ops-bar">
           <div class="next-deadlines" id="next-deadlines">計算中…</div>
           <button type="button" class="schedule-toggle" id="schedule-toggle" aria-expanded="false" aria-controls="schedule-body">展開總時程</button>
@@ -958,6 +941,7 @@
             <span><i class="k-weight">配分</i>權重／門檻</span>
             <span><i class="k-date">時程</i>日期</span>
             <span><i class="k-docs">書審</i>繳件</span>
+            <span><i class="k-rec">推薦</i>推薦信／函</span>
             <span><i class="k-warn">注意</i>重要規定</span>
             <span><i class="k-contact">聯絡</i>電話／信箱</span>
             <span><i class="k-overlap">同時報名</i>報名重疊</span>
@@ -966,7 +950,42 @@
         </div>
       </section>
 
-      <div class="panel-detail" id="school-panel">
+      
+
+    <aside class="sidebar" aria-label="學校導覽">
+      <h1>研究所志願整理</h1>
+      <nav class="toc" aria-label="學校目錄">
+        <a href="#ntnu" data-school="ntnu"><span class="toc-name">1. 臺灣師大</span><span class="toc-badge" hidden></span></a>
+        <a href="#nchu" data-school="nchu"><span class="toc-name">2. 中興大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#nthu" data-school="nthu"><span class="toc-name">3. 清華大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ccu" data-school="ccu"><span class="toc-name">4. 中正大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ntust" data-school="ntust"><span class="toc-name">5. 台科大</span><span class="toc-badge" hidden></span></a>
+        <a href="#ncku" data-school="ncku"><span class="toc-name">6. 成功大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ntou" data-school="ntou"><span class="toc-name">7. 海洋大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ntut" data-school="ntut"><span class="toc-name">8. 北科大</span><span class="toc-badge" hidden></span></a>
+        <a href="#nsysu" data-school="nsysu"><span class="toc-name">9. 中山大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#nycu" data-school="nycu"><span class="toc-name">10. 陽明交大</span><span class="toc-badge" hidden></span></a>
+      </nav>
+      <div class="side-cal" id="side-cal" aria-label="考試行事曆">
+        <div class="side-cal-head">
+          <button type="button" id="cal-prev" aria-label="上個月">‹</button>
+          <strong id="cal-title">—</strong>
+          <button type="button" id="cal-next" aria-label="下個月">›</button>
+        </div>
+        <div class="side-cal-week" aria-hidden="true">
+          <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+        </div>
+        <div class="side-cal-grid" id="cal-grid"></div>
+        <div class="side-cal-legend">
+          <span><i class="lg-reg"></i>報名</span>
+          <span><i class="lg-exam"></i>筆試／口試</span>
+        </div>
+        <div class="side-cal-list" id="cal-list">點選有色日期查看行程</div>
+      </div>
+    </aside>
+
+    <div class="main">
+<div class="panel-detail" id="school-panel">
     <!-- 1. 師大（報名最早） -->
     <section class="uni" id="ntnu">
       <div class="uni-head">
@@ -995,6 +1014,7 @@
               <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試資料審查 → 複試口試（通過初試者始得複試）</span></div>
               <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查 <span class="mark mark-weight">50%</span>＋口試 <span class="mark mark-weight">50%</span>；同分：口試 → 資料審查</span></div>
               <div class="fact"><span class="k k-docs">書審</span><span class="v">學歷證明、大學歷年成績單（含名次／全班人數）、研究計畫、推薦函至多 2 封、自傳；另可附有利資料</span></div>
+              <div class="fact"><span class="k k-rec">推薦</span><span class="v">可繳至多 2 封（列於書審項目）</span></div>
               <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">2/27(六)–2/28(日)</span>；詳細時間地點 <span class="mark mark-date">2/25 17:00</span> 後公告於本院網頁</span></div>
               <div class="fact"><span class="k k-warn">注意</span><span class="v">缺額得與綠能科技與永續治理研究所相互流用；口試不另收費</span></div>
               <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)7749-7033；phw@ntnu.edu.tw</span></div>
@@ -1034,6 +1054,7 @@
               <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">審查 → 面試</span>；無筆試；依審查成績擇優面試</span></div>
               <div class="fact"><span class="k k-weight">配分</span><span class="v">審查權重 <span class="mark mark-weight">1.00</span>＋面試權重 <span class="mark mark-weight">2.00</span>；同分：面試 → 審查</span></div>
               <div class="fact"><span class="k k-docs">書審</span><span class="v">學歷證明、歷年成績單（含名次）、其他有利資料、授課教師推薦函 1 封；在職須繳工作年資證明（未繳或年資不足以資格不符論）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">需 1 封</span>（授課教師推薦函）</span></div>
               <div class="fact"><span class="k k-date">時程</span><span class="v">面試名單 <span class="mark mark-date">3/3 10:00</span> 所網公告；面試 <span class="mark mark-date">3/11（四）</span>；第 2 梯次放榜 <span class="mark mark-date">3/22</span></span></div>
               <div class="fact"><span class="k k-warn">注意</span><span class="v">研究主軸：人工智慧與資料科學；與美國德克薩斯大學達拉斯分校（UTD）雙聯碩士（僅繳本校學雜費／可抵免至多 18 學分）</span></div>
               <div class="fact"><span class="k k-contact">聯絡</span><span class="v">04-22840424#451（黃小姐）；<a href="https://datascience.nchu.edu.tw/index.php" target="_blank" rel="noopener">datascience.nchu.edu.tw</a></span></div>
@@ -1074,6 +1095,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無複試</span>；資料審查（線上）＋面試＋英文門檻</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查 <span class="mark mark-weight">30%</span>＋面試 <span class="mark mark-weight">70%</span>（合計為錄取總成績 100%）；英文不計分，須全組到考前 <span class="mark mark-warn">75%</span>（含）</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">大學歷年成績單（轉學生含轉學前）、個人資料表（務必於系網下載並依指定格式填寫）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（系所指定繳件僅成績單＋個人資料表）</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">資料審查＋面試＋英文：考試日 <span class="mark mark-date">1/27（三）</span>；面試規定於筆試前一週系網公告</span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">跨領域學程，歡迎工程／管理／心理／設計／資訊／職安／醫學等背景；錄取後須依學程規定修課</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">03-5717654；選「招生資訊」→「入學簡章」</span></div>
@@ -1113,6 +1135,7 @@
               <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試書面審查 → 複試口試</span></div>
               <div class="fact"><span class="k k-weight">配分</span><span class="v">書面審查 <span class="mark mark-weight">50%</span>＋口試 <span class="mark mark-weight">50%</span></span></div>
               <div class="fact"><span class="k k-docs">書審</span><span class="v">歷年成績單（含名次證明）、自傳或履歷、研究計畫（含動機）、其他有利資料</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（考試入學必繳清單未列；可放「其他有利」）</span></div>
               <div class="fact"><span class="k k-date">時程</span><span class="v">預計口試 <span class="mark mark-date">2/12（五）</span></span></div>
               <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(05)2720411 轉 24008</span></div>
             </div>
@@ -1149,6 +1172,8 @@
                 <a href="https://www.im.ntust.edu.tw/" target="_blank" rel="noopener">工業管理系</a>
               </div>
               <div class="facts">
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（簡章未列推薦信）</span></div>
+
                 <div class="fact"><span class="k k-quota">名額</span><span class="v">甲 0110 <span class="mark mark-quota">10</span>／乙 0120 <span class="mark mark-quota">9</span>／丙 0130 <span class="mark mark-quota">4</span>；報名費各 1,500</span></div>
                 <div class="fact"><span class="k k-exam">考試</span><span class="v">甲／乙：<span class="mark mark-exam">筆試</span>；丙：筆試＋口試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">甲：英文門檻＋統計 50%＋作業研究 50%；乙：英文門檻＋統計 50%＋生產管理 50%；丙：英文 30%＋人因工程與安全衛生 40%＋口試 30%</span></div>
@@ -1165,6 +1190,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">口試＋審查</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">口試 <span class="mark mark-weight">50%</span>＋審查 <span class="mark mark-weight">50%</span>；特優可逕取（至多各組名額 50%）</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">個人簡歷表、成績單、進修計畫書等；口試約取其餘名額 4 倍</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">選繳</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">2/19(五)–2/21(日)</span> 系所自訂（<span class="mark mark-date">2/15 11:00</span> 公告）</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v"><a href="https://www.cs.ntust.edu.tw/p/412-1102-11272.php?Lang=zh-tw" target="_blank" rel="noopener">資訊安全科技與管理碩士班</a></span></div>
               </div>
@@ -1179,6 +1205,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">口試＋審查</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">口試 <span class="mark mark-weight">55%</span>＋審查 <span class="mark mark-weight">45%</span>；審查擇優口試（約名額 2.5 倍）</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單、簡歷、研究方向／讀書計畫（含自傳）、英文能力證明等</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">選繳</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">2/19(五)–2/21(日)</span> 系所自訂（<span class="mark mark-date">2/15 11:00</span> 公告）</span></div>
               </div>
             </li>
@@ -1196,6 +1223,7 @@
                 <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 5100</span></div>
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">口試＋審查</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">口試 <span class="mark mark-weight">50%</span>＋審查 <span class="mark mark-weight">50%</span>；特優可逕取（至多名額 50%）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">需至少 1 封</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">2/19(五)–2/21(日)</span> 系所自訂（<span class="mark mark-date">2/15 11:00</span> 公告）</span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">推薦信至少 1 封；入學後不得轉至本校其他學院系所</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">02-27301082</span></div>
@@ -1207,6 +1235,8 @@
                 <span class="chip">代碼 5200</span>
               </div>
               <div class="facts">
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">需至少 1 封</span></span></div>
+
                 <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 14 名</span>；代碼 5200</span></div>
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">審查＋口試</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">審查 <span class="mark mark-weight">60%</span>＋口試 <span class="mark mark-weight">40%</span>；特優可逕取（至多名額 50%）</span></div>
@@ -1228,6 +1258,7 @@
                 <div class="fact"><span class="k k-quota">名額</span><span class="v">甲一／甲二／丙／己一等多組（代碼 2211 等）；報名費 1,500</span></div>
                 <div class="fact"><span class="k k-exam">考試</span><span class="v">多數組採 <span class="mark mark-exam">審查 50%＋口試 50%</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單、自傳、推薦信至少 2 封、研究方向／讀書計畫等；審查擇優口試</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">需至少 2 封</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">口試 <span class="mark mark-date">2/19(五)–2/21(日)</span> 系所自訂（<span class="mark mark-date">2/15 11:00</span> 公告）</span></div>
               </div>
             </li>
@@ -1264,6 +1295,7 @@
               <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；審查 → 面試</span></div>
               <div class="fact"><span class="k k-weight">配分</span><span class="v">審查 <span class="mark mark-weight">50%</span>＋面試 <span class="mark mark-weight">50%</span>；同分：面試 → 審查；特優可免面試逕取（至多 <span class="mark mark-warn">2/3</span>）</span></div>
               <div class="fact"><span class="k k-docs">書審</span><span class="v">在校成績、資訊能力、專題研究、外語與其他、讀書計畫（含履歷）、學程考生資料系統、推薦函 2 封</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">需 2 封</span></span></div>
               <div class="fact"><span class="k k-date">時程</span><span class="v">面試 <span class="mark mark-date">1/15（五）</span>（附件三）；報到採線上</span></div>
               <div class="fact"><span class="k k-warn">注意</span><span class="v">未修畢計算機組織、資料結構、線性代數者須補修及格（限電資學院或工科系開設課程）</span></div>
               <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(06)2757575 轉 62500 轉 14</span></div>
@@ -1299,6 +1331,7 @@
               <div class="fact"><span class="k k-quota">名額</span><span class="v">導航與資訊科技組 <span class="mark mark-quota">7</span>／控制組 <span class="mark mark-quota">6</span>／通訊與訊號處理組 <span class="mark mark-quota">7</span>；在職無；報名費 800（僅書審）</span></div>
               <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 100%</span>；<span class="mark mark-exam">無筆試、無面試</span></span></div>
               <div class="fact"><span class="k k-docs">書審</span><span class="v">自傳、大學歷年成績單正本（含系及班排名）、修讀碩士學位研究構想書、其他有助審查資料（必要：專題／語文／證照／工作／競賽等）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（指定備審未列推薦信）</span></div>
               <div class="fact"><span class="k k-date">時程</span><span class="v">報名至 <span class="mark mark-date">2/1 17:00</span>；放榜 <span class="mark mark-date">3/25</span></span></div>
               <div class="fact"><span class="k k-warn">注意</span><span class="v">限相關學系畢業；各組缺額流用順序：導航與資訊科技 → 通訊與訊號處理 → 控制</span></div>
               <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)24622192 轉 7201；<a href="https://cnce.ntou.edu.tw/" target="_blank" rel="noopener">cnce.ntou.edu.tw</a></span></div>
@@ -1309,6 +1342,8 @@
               <a href="https://dstm.ntou.edu.tw/" target="_blank" rel="noopener">航運管理學系碩士班</a>
             </div>
             <div class="facts">
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（指定備審未列推薦信；筆試組亦無）</span></div>
+
               <div class="fact"><span class="k k-quota">名額</span><span class="v">航運物流組 <span class="mark mark-quota">13</span>；商業管理組英文 <span class="mark mark-quota">5</span>／統計學 <span class="mark mark-quota">4</span>；在職無；報名費 1,000</span></div>
               <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">筆試</span>；航運物流：航運經營與管理 100%；商業管理：英文／統計學二選一 100%；無面試</span></div>
               <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">3/6（六）10:00–11:30</span>（第一節）；試場 <span class="mark mark-date">3/2 12:00</span> 起公告；放榜 <span class="mark mark-date">3/25</span></span></div>
@@ -1353,6 +1388,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查＋統計學筆試</span></span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">筆試 <span class="mark mark-weight">50%</span>＋資料審查 <span class="mark mark-weight">50%</span>；同分依資料審查</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">成績單、名次證明、自傳（含研究興趣／讀書計畫）等；不須推薦函</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">2/21（日）</span></span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)2771-2171 分機 2307；gijong@mail.ntut.edu.tw</span></div>
               </div>
@@ -1367,6 +1403,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 → 面試</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">初試審查 <span class="mark mark-weight">30%</span>＋複試面試 <span class="mark mark-weight">70%</span>；同分依複試</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">自傳限 1000 字內；不須推薦函；依審查擇優面試</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">面試 <span class="mark mark-date">2/18（四）</span>；1/20 起查面試公告</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(02)2771-2171 分機 5902</span></div>
               </div>
@@ -1382,6 +1419,8 @@
                 <span class="chip">含下列學程</span>
               </div>
               <div class="facts">
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span></span></div>
+
                 <div class="fact"><span class="k k-quota">名額</span><span class="v">AI 7100 <span class="mark mark-quota">21 名</span>；資安 7200 <span class="mark mark-quota">16 名</span>；均限中華民國國籍</span></div>
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">資料審查 → 面試</span>；無筆試；均不須推薦函</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">AI：總成績依面試排序（同分看審查）；資安：審查＋面試各 <span class="mark mark-weight">50%</span></span></div>
@@ -1433,6 +1472,7 @@
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">甲：審查 <span class="mark mark-weight">50%</span>＋面試 <span class="mark mark-weight">50%</span>；乙：統計學 <span class="mark mark-weight">50%</span>＋面試 <span class="mark mark-weight">50%</span>；同分均依面試</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">乙組筆試 <span class="mark mark-date">2/3(三)</span>（第三節）；一階放榜 <span class="mark mark-date">3/5(五)</span>；面試 <span class="mark mark-date">3/8(一)–3/14(日)</span>；二階放榜 <span class="mark mark-date">3/24(三)</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">甲組報名上傳：基本資料表、企業推薦報考證明、成績單（含名次）、英文檢定、讀書計畫、其他有利資料；乙組面試前 E-mail 至 sbf_gdsf@mail.nsysu.edu.tw（基本資料表、成績單含名次、英文檢定、讀書計畫、其他）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v">甲組：<span class="mark mark-rec">企業推薦報考證明</span>（非學術推薦信）；乙組：<span class="mark mark-warn">不需推薦函</span></span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">全英文授課；甲組限指定金控／銀行／監理等機構在職並獲推薦；不招收同等學力第七條；院內缺額得互為流用</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(07)5665000 轉 3052；sbf_gdsf@mail.nsysu.edu.tw；<a href="https://sbf.nsysu.edu.tw/" target="_blank" rel="noopener">sbf.nsysu.edu.tw</a></span></div>
               </div>
@@ -1448,6 +1488,7 @@
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">甲：審查 <span class="mark mark-weight">50%</span>＋面試 <span class="mark mark-weight">50%</span>；乙：統計學 <span class="mark mark-weight">50%</span>＋面試 <span class="mark mark-weight">50%</span>；同分均依面試</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">乙組筆試 <span class="mark mark-date">2/3(三)</span>（第三節）；一階放榜 <span class="mark mark-date">3/5(五)</span>；面試 <span class="mark mark-date">3/8(一)–3/14(日)</span>；二階放榜 <span class="mark mark-date">3/24(三)</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">甲組報名上傳：基本資料表、企業推薦報考證明、成績單（含名次）、英文檢定、讀書計畫、其他有利資料；乙組面試前 E-mail 至 sbf_gam@mail.nsysu.edu.tw（基本資料表、成績單含名次、英文檢定、讀書計畫、其他）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v">甲組：<span class="mark mark-rec">企業推薦報考證明</span>（非學術推薦信）；乙組：<span class="mark mark-warn">不需推薦函</span></span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">全英文授課；甲組限指定金控／銀行／監理等機構在職並獲推薦；不招收同等學力第七條；院內缺額得互為流用</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(07)5665000 轉 3052；sbf_gam@mail.nsysu.edu.tw；<a href="https://sbf.nsysu.edu.tw/" target="_blank" rel="noopener">sbf.nsysu.edu.tw</a></span></div>
               </div>
@@ -1497,6 +1538,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 → 口試</span>；無筆試；不接受視訊</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">總成績書審 <span class="mark mark-weight">0.3</span>＋口試 <span class="mark mark-weight">0.7</span>；同分：口試 → 書審</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">資訊學院招生系統考生資料表、推薦函 2 封、自傳＋讀書計畫（併成 PDF）、大學歷年成績單（含排名）</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-rec">需 2 封</span>（資訊學院招生系統）</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">無筆試；口試 <span class="mark mark-date">1/15(五)</span>；初試放榜 <span class="mark mark-date">1/11</span>；報到 <span class="mark mark-date">3/16</span> 工程三館 345</span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">主修：機器學習、深度學習、巨量資料分析、電腦視覺；放榜第一梯次；無 2 月入學</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v"><a href="https://admission.cs.nycu.edu.tw/" target="_blank" rel="noopener">admission.cs.nycu.edu.tw</a></span></div>
@@ -1519,6 +1561,7 @@
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">甲：微積分／統計二選一＋英文門檻（前 <span class="mark mark-warn">80%</span>）；乙：計算機概論；複試口試權重 <span class="mark mark-weight">2</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/28(四)</span>；初試名單 <span class="mark mark-date">3/5</span>；口試 <span class="mark mark-date">3/18(四)</span>；正式放榜 <span class="mark mark-date">3/31</span>（第二梯次）；報到 <span class="mark mark-date">4/23</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">3/11 前填考生資料表；口試備履歷、成績單（含排名）及其他有利資料；不接受視訊</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（考試入學書審／口試備件未列）</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">lwc@nycu.edu.tw；03-5712121#57103</span></div>
               </div>
             </li>
@@ -1532,6 +1575,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">統計學筆試＋書面審查 → 口試</span></span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">統計學（2581）權重 <span class="mark mark-weight">1</span>＋審查（258R）權重 <span class="mark mark-weight">1</span>＋口試（258T）權重 <span class="mark mark-weight">1.3</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">考生資料表、學位／在學證明與大學歷年成績單（含排名）、自傳／專題／獲獎等</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（書審項目未列推薦函）</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/27(三)</span>；初試名單 <span class="mark mark-date">3/5</span>；口試 <span class="mark mark-date">3/19(五)</span>；正式放榜 <span class="mark mark-date">3/31</span>（第二梯次）；報到 <span class="mark mark-date">4/20</span></span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">anniehsieh@nycu.edu.tw；03-5712121#31348 或 03-5131348</span></div>
               </div>
@@ -1546,6 +1590,7 @@
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 → 口試</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">審查權重 <span class="mark mark-weight">1</span>＋口試權重 <span class="mark mark-weight">1.3</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">考生資料表、學位／成績單（含排名）、自傳／專題／獲獎等</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（書審項目未列推薦函）</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">無筆試；初試名單 <span class="mark mark-date">3/5</span>；口試 <span class="mark mark-date">3/19(五)</span>；正式放榜 <span class="mark mark-date">3/31</span>（第二梯次）；報到 <span class="mark mark-date">4/20</span></span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">anniehsieh@nycu.edu.tw；03-5712121#31348</span></div>
               </div>
@@ -1561,6 +1606,7 @@
                 <div class="fact"><span class="k k-weight">配分</span><span class="v">統計／經濟二選一權重 <span class="mark mark-weight">3</span>＋英文權重 <span class="mark mark-weight">3</span>；口試權重 <span class="mark mark-weight">4</span></span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">筆試 <span class="mark mark-date">1/28(四)</span>；初試名單 <span class="mark mark-date">3/5</span>；面試 <span class="mark mark-date">3/19(五)</span>；正式放榜 <span class="mark mark-date">3/31</span>（第二梯次）；報到 <span class="mark mark-date">4/28</span></span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">3/12 前於系所網填資料表；備履歷與有利資料</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（考試入學書審未列）</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">yaling@nycu.edu.tw；03-5712121#57502</span></div>
               </div>
             </li>
@@ -1579,6 +1625,7 @@
                 <div class="fact"><span class="k k-quota">名額</span><span class="v">甲 851 <span class="mark mark-quota">3</span>／乙 852 <span class="mark mark-quota">2</span>／丙 853 <span class="mark mark-quota">2</span>／丁 854 <span class="mark mark-quota">3</span>；志願 1–4；報名費 1,300／1,800</span></div>
                 <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">書面審查 100%</span>；無筆試</span></div>
                 <div class="fact"><span class="k k-docs">書審</span><span class="v">學位（在學）證明、大學歷年成績單（含排名）、考生就學資料表、自傳（含讀書計畫與動機，1500 字內）；選繳英檢／報告／競賽／作品集</span></div>
+                <div class="fact"><span class="k k-rec">推薦</span><span class="v"><span class="mark mark-warn">不需</span>（考試入學／聯招書審清單未列；甄試另規定）</span></div>
                 <div class="fact"><span class="k k-date">時程</span><span class="v">書面審查（無筆試／無口試）；報到 <span class="mark mark-date">3/16</span> 電資中心 101；放榜第一梯次</span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">無 2 月提早錄取</span></div>
               </div>
@@ -1989,11 +2036,15 @@
 
         var parts = [];
         if (openRegs.length) {
-          var topRegs = openRegs.slice(0, 2).map(function (r) {
-            return '<a href="#' + r.id + '">' + r.name + "</a>距截止 " + formatRemain(r.end - now);
+          var names = openRegs.map(function (r) {
+            return '<a href="#' + r.id + '">' + r.name + "</a>";
           }).join("、");
-          parts.push('<span class="tag tag-reg">報名中</span>' + topRegs +
-            (openRegs.length > 2 ? " 等 " + openRegs.length + " 校" : ""));
+          var soonest = openRegs[0];
+          parts.push(
+            '<span class="tag tag-reg">報名中 ' + openRegs.length + "</span>" + names +
+            ' <span class="sep">·</span>最近截止 <a href="#' + soonest.id + '">' + soonest.name +
+            "</a> " + formatRemain(soonest.end - now)
+          );
         }
         if (upcomingExams.length) {
           var ex = upcomingExams[0];

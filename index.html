@@ -10,7 +10,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>研究所志願整理｜資工／資管／AI 相關</title>
+  <title>必勝戰情室｜資工／資管／AI 相關</title>
   <style>
     :root {
       --bg: #efe9df;
@@ -98,9 +98,12 @@
 
     .sidebar h1 {
       margin: 0.15rem 0.25rem 0.35rem;
-      font-size: 1.05rem;
-      letter-spacing: 0.04em;
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
       line-height: 1.35;
+      font-weight: 800;
+      color: #0a4f41;
+      text-shadow: 0 0 18px rgba(10, 79, 65, 0.18);
     }
 
     .sidebar .brand-sub {
@@ -341,90 +344,363 @@
     }
 
     .panel-schedule {
+      --beam: #39ffd3;
+      --beam-2: #4fd3ff;
+      position: relative;
       grid-column: 1 / -1;
       flex: 0 0 auto;
-      padding: 0.5rem 0.8rem;
-      background: #fffcf7;
-      border-bottom: 1px solid var(--line);
+      padding: 0.55rem 0.9rem;
+      color: #d7fbf3;
+      background:
+        linear-gradient(180deg, rgba(57, 255, 211, 0.08), transparent 42%),
+        radial-gradient(120% 180% at 12% 0%, rgba(79, 211, 255, 0.16), transparent 40%),
+        linear-gradient(90deg, #061014 0%, #0b1c22 45%, #07141a 100%);
+      border-bottom: 1px solid rgba(57, 255, 211, 0.35);
       overflow: hidden;
-      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
-      box-shadow: 0 1px 0 rgba(40, 32, 18, 0.04);
+      font-family: "Segoe UI", "Noto Sans TC", "Consolas", monospace;
+      box-shadow:
+        0 0 0 1px rgba(57, 255, 211, 0.12) inset,
+        0 10px 28px rgba(0, 20, 24, 0.35),
+        0 0 24px rgba(57, 255, 211, 0.12);
       z-index: 2;
+      isolation: isolate;
     }
 
+    .panel-schedule::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(57, 255, 211, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 211, 255, 0.045) 1px, transparent 1px);
+      background-size: 28px 28px, 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 92%);
+      animation: ops-grid-drift 12s linear infinite;
+    }
+
+    .panel-schedule::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.045) 0 1px,
+          transparent 1px 3px
+        );
+      mix-blend-mode: soft-light;
+      opacity: 0.7;
+      animation: ops-scanlines 0.9s steps(2) infinite;
+    }
+
+    .ops-fx {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    /* 前衛光掃：全高斜面光束＋拖尾，仍走在文字霧層下 */
+    .ops-fx .beam-core,
+    .ops-fx .beam-bloom,
+    .ops-fx .beam-spark {
+      position: absolute;
+      top: -15%;
+      bottom: -15%;
+      left: -18%;
+    }
+
+    .ops-fx .beam-bloom {
+      width: 34%;
+      background: linear-gradient(
+        108deg,
+        transparent 0%,
+        rgba(79, 211, 255, 0.04) 28%,
+        rgba(57, 255, 211, 0.22) 46%,
+        rgba(255, 255, 255, 0.38) 51%,
+        rgba(79, 211, 255, 0.2) 56%,
+        rgba(57, 255, 211, 0.08) 68%,
+        transparent 100%
+      );
+      filter: blur(12px);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      animation: ops-beam-sweep 3.4s cubic-bezier(0.18, 0.7, 0.2, 1) infinite;
+    }
+
+    .ops-fx .beam-core {
+      width: 14%;
+      background: linear-gradient(
+        108deg,
+        transparent 0%,
+        rgba(57, 255, 211, 0) 32%,
+        rgba(180, 255, 245, 0.55) 46%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(79, 211, 255, 0.75) 54%,
+        transparent 78%
+      );
+      box-shadow:
+        0 0 16px rgba(57, 255, 211, 0.75),
+        0 0 36px rgba(79, 211, 255, 0.4);
+      mix-blend-mode: screen;
+      animation: ops-beam-sweep 3.4s cubic-bezier(0.18, 0.7, 0.2, 1) infinite;
+    }
+
+    .ops-fx .beam-spark {
+      width: 2px;
+      margin-left: 6.5%;
+      background: #fff;
+      box-shadow:
+        0 0 6px 1px #fff,
+        0 0 14px 3px var(--beam),
+        0 0 28px 8px rgba(79, 211, 255, 0.65);
+      animation: ops-beam-sweep 3.4s cubic-bezier(0.18, 0.7, 0.2, 1) infinite;
+    }
+
+    .ops-fx .rail {
+      position: absolute;
+      left: 0.55rem;
+      right: 0.55rem;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(57, 255, 211, 0.2),
+        rgba(255, 255, 255, 0.7),
+        rgba(79, 211, 255, 0.4),
+        transparent
+      );
+      box-shadow: 0 0 12px rgba(57, 255, 211, 0.45);
+      animation: ops-rail-pulse 3.4s ease-in-out infinite;
+    }
+
+    .ops-fx .rail-top { top: 0; opacity: 0.55; }
+    .ops-fx .rail-bot { bottom: 0; opacity: 0.9; }
+
+    /* 4. 不對稱四角：右上加大＋脈衝 */
+    .ops-fx .corner {
+      position: absolute;
+      border-color: rgba(57, 255, 211, 0.75);
+      border-style: solid;
+      box-shadow: 0 0 8px rgba(57, 255, 211, 0.3);
+    }
+
+    .ops-fx .corner-tl {
+      top: 5px; left: 5px;
+      width: 11px; height: 11px;
+      border-width: 1.5px 0 0 1.5px;
+      opacity: 0.7;
+    }
+
+    .ops-fx .corner-tr {
+      top: 3px; right: 3px;
+      width: 22px; height: 16px;
+      border-width: 2px 2px 0 0;
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 78% 100%, 0 100%);
+      background: linear-gradient(225deg, rgba(57, 255, 211, 0.18), transparent 65%);
+      animation: ops-corner-pulse 3.4s ease-in-out infinite;
+    }
+
+    .ops-fx .corner-bl {
+      bottom: 5px; left: 5px;
+      width: 10px; height: 10px;
+      border-width: 0 0 1.5px 1.5px;
+      opacity: 0.55;
+    }
+
+    .ops-fx .corner-br {
+      bottom: 4px; right: 6px;
+      width: 13px; height: 9px;
+      border-width: 0 1.5px 1.5px 0;
+      opacity: 0.65;
+    }
+
+    @keyframes ops-beam-sweep {
+      0% { transform: translateX(-35%) skewX(-16deg); opacity: 0; }
+      8% { opacity: 1; }
+      55% { opacity: 1; }
+      78% { opacity: 0.45; }
+      100% { transform: translateX(520%) skewX(-16deg); opacity: 0; }
+    }
+
+    @keyframes ops-rail-pulse {
+      0%, 100% { opacity: 0.35; filter: brightness(0.85); }
+      40% { opacity: 1; filter: brightness(1.45); }
+      70% { opacity: 0.5; }
+    }
+
+    @keyframes ops-corner-pulse {
+      0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 2px rgba(57,255,211,0.25)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 10px rgba(57,255,211,0.85)); }
+    }
+
+    @keyframes ops-grid-drift {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 28px 14px, -28px 0; }
+    }
+
+    @keyframes ops-scanlines {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(2px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .panel-schedule::before,
+      .panel-schedule::after,
+      .ops-fx .beam-core,
+      .ops-fx .beam-bloom,
+      .ops-fx .beam-spark,
+      .ops-fx .rail,
+      .ops-fx .corner-tr {
+        animation: none;
+      }
+      .ops-fx .beam-bloom { opacity: 0.3; left: 30%; }
+      .ops-fx .beam-core,
+      .ops-fx .beam-spark { display: none; }
+    }
+
+    /* 5. 用 flex 對齊，不再絕對定位按鈕 */
     .ops-bar {
       position: relative;
+      z-index: 3;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      min-height: 1.7rem;
-      padding-right: 5.5rem;
+      justify-content: space-between;
+      gap: 0.65rem;
+      min-height: 2rem;
     }
 
+    /* 3. 左側狀態碼 */
+    .ops-code {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.12rem 0.4rem;
+      border: 1px solid rgba(57, 255, 211, 0.28);
+      background: rgba(3, 14, 16, 0.55);
+      color: rgba(154, 247, 228, 0.72);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ops-code .dot {
+      width: 0.38rem;
+      height: 0.38rem;
+      border-radius: 50%;
+      background: #39ffd3;
+      box-shadow: 0 0 8px rgba(57, 255, 211, 0.85);
+      animation: ops-corner-pulse 2.2s ease-in-out infinite;
+    }
+
+    /* 內容薄霧底：光掃可穿過，文字仍可讀 */
     .next-deadlines {
-      flex: 0 1 auto;
+      flex: 1 1 auto;
       min-width: 0;
       text-align: center;
-      font-size: 0.8rem;
-      line-height: 1.4;
-      color: var(--ink);
-      font-weight: 500;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: #e8fff9;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 8px rgba(57, 255, 211, 0.22);
+      padding: 0.22rem 0.7rem;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(2, 12, 14, 0.62) 12%,
+        rgba(2, 12, 14, 0.68) 88%,
+        transparent 100%
+      );
+      border: 1px solid rgba(57, 255, 211, 0.14);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.18) inset;
+      backdrop-filter: blur(1.5px);
     }
 
     .next-deadlines a {
+      color: #9af7e4;
       text-decoration: none;
-      font-weight: 650;
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(57, 255, 211, 0.3);
     }
 
+    .next-deadlines a:hover { color: #fff; }
+
     .next-deadlines .sep {
-      color: var(--muted);
+      color: rgba(157, 240, 224, 0.4);
       margin: 0 0.35rem;
     }
 
     .next-deadlines .tag {
       display: inline-block;
-      padding: 0.05rem 0.3rem;
+      padding: 0.05rem 0.35rem;
       margin-right: 0.2rem;
-      font-size: 0.66rem;
-      font-weight: 700;
-      border: 1px solid var(--line);
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(57, 255, 211, 0.45);
+      box-shadow: 0 0 10px rgba(57, 255, 211, 0.14);
+      vertical-align: 0.05em;
     }
 
     .next-deadlines .tag-reg {
-      color: var(--c-open);
-      background: var(--c-open-bg);
-      border-color: var(--c-open-line);
+      color: #ffe7a8;
+      background: rgba(255, 176, 32, 0.16);
+      border-color: rgba(255, 196, 77, 0.55);
+      box-shadow: 0 0 12px rgba(255, 176, 32, 0.2);
     }
 
     .next-deadlines .tag-exam {
-      color: var(--c-date);
-      background: var(--c-date-bg);
-      border-color: #c9b4e0;
+      color: #c9f0ff;
+      background: rgba(79, 211, 255, 0.14);
+      border-color: rgba(79, 211, 255, 0.55);
+      box-shadow: 0 0 12px rgba(79, 211, 255, 0.22);
     }
 
     .schedule-toggle {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      position: static;
+      transform: none;
+      z-index: 4;
       flex: 0 0 auto;
-      padding: 0.28rem 0.55rem;
-      border: 1px solid #c5ddd5;
-      background: var(--accent-soft);
-      color: var(--accent);
+      height: 1.7rem;
+      padding: 0 0.65rem;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(57, 255, 211, 0.5);
+      background: linear-gradient(180deg, rgba(57, 255, 211, 0.14), rgba(7, 21, 26, 0.88));
+      color: #d7fff6;
       font: inherit;
       font-size: 0.72rem;
-      font-weight: 650;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1;
       cursor: pointer;
       white-space: nowrap;
+      box-shadow:
+        0 0 0 1px rgba(79, 211, 255, 0.1) inset,
+        0 0 12px rgba(57, 255, 211, 0.18);
+      clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
     }
 
     .schedule-toggle:hover {
-      background: #cfe6de;
+      background: linear-gradient(180deg, rgba(57, 255, 211, 0.28), rgba(10, 40, 48, 0.9));
+      color: #fff;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+        0 0 18px rgba(57, 255, 211, 0.35);
     }
 
     .schedule-body {
+      position: relative;
+      z-index: 3;
       margin-top: 0.45rem;
     }
 
@@ -436,8 +712,30 @@
       margin: 0 0 0.3rem;
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--accent);
+      letter-spacing: 0.12em;
+      color: #9af7e4;
+      text-shadow: 0 0 10px rgba(57, 255, 211, 0.35);
+    }
+
+    .panel-schedule .schedule-col {
+      border-color: rgba(57, 255, 211, 0.28);
+      background: rgba(6, 18, 22, 0.72);
+      box-shadow: 0 0 0 1px rgba(79, 211, 255, 0.08) inset;
+    }
+
+    .panel-schedule .schedule-board th,
+    .panel-schedule .schedule-board td {
+      border-bottom-color: rgba(57, 255, 211, 0.12);
+      color: #d7fbf3;
+    }
+
+    .panel-schedule .schedule-board th {
+      background: rgba(57, 255, 211, 0.12);
+      color: #9af7e4;
+    }
+
+    .panel-schedule .schedule-board a {
+      color: #9af7e4;
     }
 
     .conflict-facts.is-empty {
@@ -868,7 +1166,7 @@
 <body>
   <div class="gate" id="gate">
     <div class="gate-card">
-      <h1>研究所志願整理</h1>
+      <h1>必勝戰情室</h1>
       <p>此頁面受密碼保護。請輸入分享密碼後繼續。</p>
       <form id="gate-form" autocomplete="off">
         <input id="gate-pass" type="password" name="password" placeholder="請輸入密碼" required />
@@ -880,7 +1178,19 @@
 
   <div class="wrap" id="app" hidden>
           <section class="panel-schedule is-collapsed" id="panel-schedule" aria-label="總時程">
+        <div class="ops-fx" aria-hidden="true">
+          <span class="beam-bloom"></span>
+          <span class="beam-core"></span>
+          <span class="beam-spark"></span>
+          <span class="rail rail-top"></span>
+          <span class="rail rail-bot"></span>
+          <span class="corner corner-tl"></span>
+          <span class="corner corner-tr"></span>
+          <span class="corner corner-bl"></span>
+          <span class="corner corner-br"></span>
+        </div>
         <div class="ops-bar">
+          <span class="ops-code" aria-hidden="true"><span class="dot"></span>OPS // LIVE</span>
           <div class="next-deadlines" id="next-deadlines">計算中…</div>
           <button type="button" class="schedule-toggle" id="schedule-toggle" aria-expanded="false" aria-controls="schedule-body">展開總時程</button>
         </div>
@@ -929,7 +1239,7 @@
                   <tr><td><a href="#ncku">6. 成大</a></td><td>11/30–12/7</td><td>無筆試；面試 1/15</td></tr>
                   <tr><td><a href="#ntou">7. 海大</a></td><td>11/30–2/1</td><td>航管筆試 3/6；通訊導航僅審查</td></tr>
                   <tr><td><a href="#ntut">8. 北科大</a></td><td>12/1–12/10</td><td>工工筆試 2/21；面試 2/17–2/19</td></tr>
-                  <tr><td><a href="#nsysu">9. 中山</a></td><td>12/1–12/16</td><td>乙組統計筆試 2/3；面試 3/8–3/14</td></tr>
+                  <tr><td><a href="#nsysu">9. 中山</a></td><td>12/1–12/16</td><td>乙組統計筆試 2/3；面試 3/8–3/14；產碩（緯創 AI）簡章待公佈</td></tr>
                   <tr><td><a href="#nycu">10. 陽明交大</a></td><td>12/8–12/15</td><td>筆試 1/27–1/28；口試／面試 1/15、3/18–3/19</td></tr>
                 </tbody>
               </table>
@@ -953,7 +1263,7 @@
       
 
     <aside class="sidebar" aria-label="學校導覽">
-      <h1>研究所志願整理</h1>
+      <h1>必勝戰情室</h1>
       <nav class="toc" aria-label="學校目錄">
         <a href="#ntnu" data-school="ntnu"><span class="toc-name">1. 臺灣師大</span><span class="toc-badge" hidden></span></a>
         <a href="#nchu" data-school="nchu"><span class="toc-name">2. 中興大學</span><span class="toc-badge" hidden></span></a>
@@ -1491,6 +1801,24 @@
                 <div class="fact"><span class="k k-rec">推薦</span><span class="v">甲組：<span class="mark mark-rec">企業推薦報考證明</span>（非學術推薦信）；乙組：<span class="mark mark-warn">不需推薦函</span></span></div>
                 <div class="fact"><span class="k k-warn">注意</span><span class="v">全英文授課；甲組限指定金控／銀行／監理等機構在職並獲推薦；不招收同等學力第七條；院內缺額得互為流用</span></div>
                 <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(07)5665000 轉 3052；sbf_gam@mail.nsysu.edu.tw；<a href="https://sbf.nsysu.edu.tw/" target="_blank" rel="noopener">sbf.nsysu.edu.tw</a></span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="college">
+          <h3>產業碩士專班（待追蹤）</h3>
+          <ul class="programs">
+            <li>
+              <div class="prog-title">
+                <a href="https://eentsv2.ee.nsysu.edu.tw/wistron/ms.htm" target="_blank" rel="noopener">緯創資通 AI 跨域應用產業碩士專班</a>
+                <span class="chip">產碩 · 非考試入學</span>
+              </div>
+              <div class="facts">
+                <div class="fact"><span class="k k-warn">狀態</span><span class="v"><span class="mark mark-warn">116 產業碩士簡章尚未開放</span>（招生系統顯示可先參考前一學年度；是否再開班以簡章為準）</span></div>
+                <div class="fact"><span class="k k-exam">管道</span><span class="v">產業碩士專班，<span class="mark mark-exam">不是</span>上方國際金融院考試入學；過往曾以春季班招生（約 20 名）</span></div>
+                <div class="fact"><span class="k k-docs">查詢</span><span class="v"><a href="http://exam.acad.nsysu.edu.tw/exam_netlist/exam_netlist_index.php" target="_blank" rel="noopener">中山簡章查詢（產業碩士專班）</a>；專班頁 <a href="https://eentsv2.ee.nsysu.edu.tw/wistron/ms.htm" target="_blank" rel="noopener">eentsv2.ee.nsysu.edu.tw/wistron</a></span></div>
+                <div class="fact"><span class="k k-contact">提醒</span><span class="v">之後簡章一出再補名額／時程／書審；先放這區以免漏追</span></div>
               </div>
             </li>
           </ul>

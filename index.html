@@ -44,8 +44,13 @@
 
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
+      overflow: hidden;
+    }
+
+    body {
       color: var(--ink);
       background:
         radial-gradient(circle at top left, rgba(15, 92, 76, 0.08), transparent 28%),
@@ -63,59 +68,379 @@
     a:hover { color: #083c32; }
 
     .wrap {
-      width: min(980px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 2.5rem 0 4rem;
-    }
-
-    header {
-      margin-bottom: 2rem;
-      padding: 1.75rem 1.5rem;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    header h1 {
-      margin: 0 0 0.4rem;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      letter-spacing: 0.02em;
-    }
-
-    header p {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 12.2rem minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      width: 100%;
+      height: 100%;
       margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      padding: 0.75rem 0.55rem;
+      background: rgba(255, 253, 248, 0.96);
+      border-right: 1px solid var(--line);
+      overflow: auto;
+      min-height: 0;
+    }
+
+    .sidebar h1 {
+      margin: 0.15rem 0.25rem 0.35rem;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+    }
+
+    .sidebar .brand-sub {
+      margin: 0 0.25rem 0.4rem;
       color: var(--muted);
-      font-size: 0.98rem;
+      font-size: 0.72rem;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      letter-spacing: 0.06em;
     }
 
     nav.toc {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.6rem;
-      margin: 1.25rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin: 0;
+      flex: 0 0 auto;
     }
 
     nav.toc a {
-      display: block;
-      padding: 0.65rem 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem;
+      padding: 0.45rem 0.5rem;
       background: var(--accent-soft);
       color: var(--accent);
       text-decoration: none;
       border: 1px solid #c5ddd5;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
-      font-size: 0.92rem;
+      font-size: 0.82rem;
+      line-height: 1.3;
     }
 
     nav.toc a:hover {
       background: #cfe6de;
     }
 
+    nav.toc a.is-active {
+      background: var(--accent);
+      color: #fff;
+      border-color: #0b4a3d;
+    }
+
+    nav.toc a.is-active .toc-badge {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    .toc-name { min-width: 0; }
+
+    .toc-badge {
+      flex: 0 0 auto;
+      padding: 0.08rem 0.28rem;
+      border: 1px solid transparent;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .toc-badge.is-open {
+      color: #6b4a12;
+      background: #f4ead3;
+      border-color: #e2d2ad;
+    }
+
+    .toc-badge.is-soon {
+      color: var(--c-date);
+      background: var(--c-date-bg);
+      border-color: #d8cce6;
+    }
+
+    .toc-badge.is-done {
+      color: var(--muted);
+      background: #f0ebe3;
+      border-color: var(--line);
+    }
+
+    .toc-badge.is-idle {
+      color: var(--accent);
+      background: #e8f3ef;
+      border-color: #c5ddd5;
+    }
+
+    .side-cal {
+      margin-top: auto;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--line);
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    .side-cal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.2rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .side-cal-head strong {
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+
+    .side-cal-head button {
+      width: 1.55rem;
+      height: 1.55rem;
+      padding: 0;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--accent);
+      cursor: pointer;
+      font: inherit;
+      line-height: 1;
+    }
+
+    .side-cal-head button:hover {
+      background: var(--accent-soft);
+    }
+
+    .side-cal-week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.1rem;
+      margin-bottom: 0.15rem;
+      color: var(--muted);
+      font-size: 0.62rem;
+      text-align: center;
+    }
+
+    .side-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.12rem;
+    }
+
+    .side-cal-day {
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.68rem;
+      font-variant-numeric: tabular-nums;
+      cursor: default;
+      position: relative;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .side-cal-day.is-muted { color: #b5aea3; }
+    .side-cal-day.is-today {
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+    .side-cal-day.has-reg {
+      background: var(--c-overlap-bg);
+      color: var(--c-overlap);
+    }
+    .side-cal-day.has-exam {
+      background: var(--c-date-bg);
+      color: var(--c-date);
+      font-weight: 700;
+    }
+    .side-cal-day.has-reg.has-exam {
+      background: linear-gradient(135deg, var(--c-overlap-bg) 50%, var(--c-date-bg) 50%);
+      color: var(--ink);
+    }
+    .side-cal-day.has-event {
+      cursor: pointer;
+    }
+    .side-cal-day.has-event:hover,
+    .side-cal-day.is-selected {
+      outline: 1px solid var(--accent);
+      outline-offset: 0;
+    }
+
+    .side-cal-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.45rem;
+      margin-top: 0.35rem;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .side-cal-legend i {
+      display: inline-block;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-right: 0.15rem;
+      vertical-align: -0.05rem;
+      border: 1px solid var(--line);
+    }
+
+    .side-cal-legend .lg-reg { background: var(--c-overlap-bg); }
+    .side-cal-legend .lg-exam { background: var(--c-date-bg); }
+
+    .side-cal-list {
+      margin-top: 0.4rem;
+      max-height: 5.8rem;
+      overflow: auto;
+      font-size: 0.66rem;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .side-cal-list strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+      font-size: 0.68rem;
+    }
+
+    .side-cal-list div {
+      padding: 0.12rem 0;
+      border-bottom: 1px dashed #ebe3d6;
+    }
+
+    .side-cal-list div:last-child { border-bottom: 0; }
+
+    .main {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .panel-schedule {
+      flex: 0 0 auto;
+      padding: 0.45rem 0.75rem 0.45rem;
+      background: rgba(255, 253, 248, 0.98);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    .ops-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-height: 1.7rem;
+    }
+
+    .next-deadlines {
+      flex: 1;
+      min-width: 0;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .next-deadlines a {
+      text-decoration: none;
+      font-weight: 650;
+    }
+
+    .next-deadlines .sep {
+      color: var(--muted);
+      margin: 0 0.35rem;
+    }
+
+    .next-deadlines .tag {
+      display: inline-block;
+      padding: 0.05rem 0.3rem;
+      margin-right: 0.2rem;
+      font-size: 0.66rem;
+      font-weight: 700;
+      border: 1px solid var(--line);
+    }
+
+    .next-deadlines .tag-reg {
+      color: #6b4a12;
+      background: #f4ead3;
+      border-color: #e2d2ad;
+    }
+
+    .next-deadlines .tag-exam {
+      color: var(--c-date);
+      background: var(--c-date-bg);
+      border-color: #d8cce6;
+    }
+
+    .schedule-toggle {
+      flex: 0 0 auto;
+      padding: 0.28rem 0.55rem;
+      border: 1px solid #c5ddd5;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 650;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .schedule-toggle:hover {
+      background: #cfe6de;
+    }
+
+    .schedule-body {
+      margin-top: 0.45rem;
+    }
+
+    .panel-schedule.is-collapsed .schedule-body {
+      display: none;
+    }
+
+    .panel-schedule .panel-label {
+      margin: 0 0 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .conflict-facts.is-empty {
+      display: none;
+    }
+
+    .conflict-facts .fact.is-empty {
+      display: none;
+    }
+
+    .panel-detail {
+      min-height: 0;
+      overflow: auto;
+      padding: 0.75rem 0.85rem 1.2rem;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
+    }
+
     .uni {
-      margin: 1.4rem 0;
+      margin: 0 0 1rem;
       background: var(--paper);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
       overflow: clip;
+      scroll-margin-top: 0.6rem;
     }
 
     .uni-head {
@@ -185,27 +510,41 @@
     }
 
     .schedule-board {
-      margin-top: 1.25rem;
-      overflow-x: auto;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem;
+      background: transparent;
+      border: 0;
+      overflow: hidden;
+    }
+
+    .schedule-col {
       border: 1px solid var(--line);
       background: #faf7f1;
+      overflow: hidden;
+      min-width: 0;
     }
 
     .schedule-board table {
       width: 100%;
       border-collapse: collapse;
+      table-layout: fixed;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.72rem;
     }
 
     .schedule-board th,
     .schedule-board td {
-      padding: 0.55rem 0.7rem;
+      padding: 0.28rem 0.4rem;
       border-bottom: 1px solid #ebe3d6;
       text-align: left;
       vertical-align: top;
-      line-height: 1.45;
+      line-height: 1.35;
     }
+
+    .schedule-board col.c-school { width: 4.6rem; }
+    .schedule-board col.c-reg { width: 7.2rem; }
 
     .schedule-board td:nth-child(1),
     .schedule-board td:nth-child(2) {
@@ -213,14 +552,17 @@
     }
 
     .schedule-board td:last-child {
-      font-size: 0.86rem;
-      min-width: 16rem;
+      font-size: 0.7rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .schedule-board th {
       background: var(--accent-soft);
       color: var(--accent);
       font-weight: 650;
+      position: sticky;
+      top: 0;
     }
 
     .schedule-board tr:last-child td { border-bottom: 0; }
@@ -228,10 +570,7 @@
     .schedule-board a { text-decoration: none; }
 
     .schedule-note {
-      margin: 0.55rem 0 0;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      display: none;
     }
 
     .uni-body {
@@ -342,12 +681,12 @@
     .mark-clash { color: var(--c-clash); }
 
     .legend {
-      margin-top: 1rem;
+      margin-top: 0.35rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem 0.65rem;
+      gap: 0.22rem 0.45rem;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.68rem;
       color: var(--muted);
     }
 
@@ -384,15 +723,51 @@
     }
 
     footer {
-      margin-top: 1.5rem;
+      margin-top: 0.4rem;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-family: "Segoe UI", "Noto Sans TC", sans-serif;
     }
 
-    @media (max-width: 640px) {
-      .wrap { width: min(100% - 1.2rem, 980px); padding-top: 1.2rem; }
-      .uni-head, .uni-body, header { padding-left: 1rem; padding-right: 1rem; }
+    @media (max-width: 980px) {
+      .wrap {
+        grid-template-columns: 9.2rem minmax(0, 1fr);
+      }
+      .schedule-board {
+        grid-template-columns: 1fr;
+      }
+      nav.toc a { font-size: 0.8rem; padding: 0.45rem 0.5rem; }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+      }
+      .sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        max-height: none;
+        padding-bottom: 0.45rem;
+      }
+      .sidebar h1 { font-size: 0.95rem; }
+      .brand-sub { display: none; }
+      nav.toc {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 0.3rem;
+      }
+      nav.toc a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+      .side-cal {
+        margin-top: 0.45rem;
+      }
+      .main {
+        min-height: 0;
+      }
       .fact { grid-template-columns: 4rem 1fr; gap: 0.4rem; }
     }
 
@@ -474,60 +849,111 @@
   </div>
 
   <div class="wrap" id="app" hidden>
-    <header>
+    <aside class="sidebar" aria-label="學校導覽">
       <h1>研究所志願整理</h1>
+      <p class="brand-sub">戰情室 · 10 校</p>
       <nav class="toc" aria-label="學校目錄">
-        <a href="#ntnu">1. 臺灣師大</a>
-        <a href="#ncu">2. 中央大學</a>
-        <a href="#nchu">3. 中興大學</a>
-        <a href="#nthu">4. 清華大學</a>
-        <a href="#ccu">5. 中正大學</a>
-        <a href="#ntust">6. 台科大</a>
-        <a href="#ncku">7. 成功大學</a>
-        <a href="#ntou">8. 海洋大學</a>
-        <a href="#ntut">9. 北科大</a>
-        <a href="#nsysu">10. 中山大學</a>
-        <a href="#nycu">11. 陽明交大</a>
+        <a href="#ntnu" data-school="ntnu"><span class="toc-name">1. 臺灣師大</span><span class="toc-badge" hidden></span></a>
+        <a href="#nchu" data-school="nchu"><span class="toc-name">2. 中興大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#nthu" data-school="nthu"><span class="toc-name">3. 清華大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ccu" data-school="ccu"><span class="toc-name">4. 中正大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ntust" data-school="ntust"><span class="toc-name">5. 台科大</span><span class="toc-badge" hidden></span></a>
+        <a href="#ncku" data-school="ncku"><span class="toc-name">6. 成功大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ntou" data-school="ntou"><span class="toc-name">7. 海洋大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#ntut" data-school="ntut"><span class="toc-name">8. 北科大</span><span class="toc-badge" hidden></span></a>
+        <a href="#nsysu" data-school="nsysu"><span class="toc-name">9. 中山大學</span><span class="toc-badge" hidden></span></a>
+        <a href="#nycu" data-school="nycu"><span class="toc-name">10. 陽明交大</span><span class="toc-badge" hidden></span></a>
       </nav>
-      <div class="schedule-board" aria-label="116考試入學報名與筆試面試一覽">
-        <table>
-          <thead>
-            <tr>
-              <th>學校</th>
-              <th>報名（115 年）</th>
-              <th>筆試／面試（116 年・本頁系所）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><a href="#ntnu">1. 師大</a></td><td>11/10(二)–11/20(五)</td><td>無筆試；口試 2/27(六)–2/28(日)</td></tr>
-            <tr><td><a href="#ncu">2. 中央</a></td><td>11/17(二)–11/26(四)</td><td>無筆試；口試 2/23(二) 上午</td></tr>
-            <tr><td>台聯大</td><td>11/20(五)–11/23(一)</td><td>校級筆試 1/30(六)–1/31(日)；本頁智能系統為書面審查（無筆試）</td></tr>
-            <tr><td><a href="#nchu">3. 中興</a></td><td>11/24(二)–12/8(二)</td><td>無筆試；面試 3/11(四)</td></tr>
-            <tr><td><a href="#nthu">4. 清大</a></td><td>11/24(二)–12/1(二)</td><td>工工丙審查＋面試：1/27(三)</td></tr>
-            <tr><td><a href="#ccu">5. 中正</a></td><td>11/26(四)–12/8(二)</td><td>無筆試；口試預計 2/12(五)</td></tr>
-            <tr><td><a href="#ntust">6. 台科大</a></td><td>11/27(五)–12/10(四)</td><td>工管筆試 1/25(一)；有口試系所口試 2/19(五)–2/21(日)（2/15 公告時間）</td></tr>
-            <tr><td><a href="#ncku">7. 成大</a></td><td>11/30(一)–12/7(一)</td><td>無筆試；面試 1/15(五)</td></tr>
-            <tr><td><a href="#ntou">8. 海大</a></td><td>11/30(一)–2/1(一)</td><td>航管筆試 3/6(六) 10:00–11:30；通訊導航僅資料審查（無筆試／無面試）</td></tr>
-            <tr><td><a href="#ntut">9. 北科大</a></td><td>12/1(二)–12/10(四)</td><td>工工筆試 2/21(日)；面試 AI 2/17(三)、資財 2/18(四)、資安 2/19(五)</td></tr>
-            <tr><td><a href="#nsysu">10. 中山</a></td><td>12/1(二)–12/16(三)</td><td>數金／國資乙組統計學筆試 2/3(三)，面試 3/8–3/14</td></tr>
-            <tr><td><a href="#nycu">11. 陽明交大</a></td><td>12/8(二)–12/15(二)</td><td>筆試：財工甲 1/27、管科／科管／工工 1/28；口試／面試：AI 醫計 1/15、管科 3/18、財工甲／財工丙／科管 3/19；第二梯次正式放榜 3/31；智能系統書面審查（無筆試）</td></tr>
-          </tbody>
-        </table>
+      <div class="side-cal" id="side-cal" aria-label="考試行事曆">
+        <div class="side-cal-head">
+          <button type="button" id="cal-prev" aria-label="上個月">‹</button>
+          <strong id="cal-title">—</strong>
+          <button type="button" id="cal-next" aria-label="下個月">›</button>
+        </div>
+        <div class="side-cal-week" aria-hidden="true">
+          <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+        </div>
+        <div class="side-cal-grid" id="cal-grid"></div>
+        <div class="side-cal-legend">
+          <span><i class="lg-reg"></i>報名</span>
+          <span><i class="lg-exam"></i>筆試／口試</span>
+        </div>
+        <div class="side-cal-list" id="cal-list">點選有色日期查看行程</div>
       </div>
-      <p class="schedule-note">學校順序依 115 年報名開始日由早到晚排列；上表「筆試／面試」僅列本頁已選系所之確切日期（含星期），校級統一筆試日若與本頁系所無關則不單列。</p>
-      <div class="legend" aria-label="標示說明">
-        <span><i class="k-quota">名額</i>人數／費用</span>
-        <span><i class="k-exam">考試</i>考試方式</span>
-        <span><i class="k-weight">配分</i>權重／門檻</span>
-        <span><i class="k-date">時程</i>日期</span>
-        <span><i class="k-docs">書審</i>繳件</span>
-        <span><i class="k-warn">注意</i>重要規定</span>
-        <span><i class="k-contact">聯絡</i>電話／信箱</span>
-        <span><i class="k-overlap">同時報名</i>報名期間重疊／目前開放中之學校</span>
-        <span><i class="k-clash">同日考試</i>口試或筆試日期重疊之學校系所</span>
-      </div>
-    </header>
+    </aside>
 
+    <div class="main">
+      <section class="panel-schedule is-collapsed" id="panel-schedule" aria-label="總時程">
+        <div class="ops-bar">
+          <div class="next-deadlines" id="next-deadlines">計算中…</div>
+          <button type="button" class="schedule-toggle" id="schedule-toggle" aria-expanded="false" aria-controls="schedule-body">展開總時程</button>
+        </div>
+        <div class="schedule-body" id="schedule-body">
+          <p class="panel-label">總時程一覽</p>
+          <div class="schedule-board" aria-label="116考試入學報名與筆試面試一覽">
+            <div class="schedule-col">
+              <table>
+                <colgroup>
+                  <col class="c-school" />
+                  <col class="c-reg" />
+                  <col />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>學校</th>
+                    <th>報名</th>
+                    <th>筆試／面試</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="#ntnu">1. 師大</a></td><td>11/10–11/20</td><td>無筆試；口試 2/27–2/28</td></tr>
+                  <tr><td>台聯大</td><td>11/20–11/23</td><td>校級筆試 1/30–1/31；智能系統書面審查</td></tr>
+                  <tr><td><a href="#nchu">2. 中興</a></td><td>11/24–12/8</td><td>無筆試；面試 3/11</td></tr>
+                  <tr><td><a href="#nthu">3. 清大</a></td><td>11/24–12/1</td><td>工工丙審查＋面試 1/27</td></tr>
+                  <tr><td><a href="#ccu">4. 中正</a></td><td>11/26–12/8</td><td>無筆試；口試預計 2/12</td></tr>
+                  <tr><td><a href="#ntust">5. 台科大</a></td><td>11/27–12/10</td><td>工管筆試 1/25；口試 2/19–2/21</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="schedule-col">
+              <table>
+                <colgroup>
+                  <col class="c-school" />
+                  <col class="c-reg" />
+                  <col />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>學校</th>
+                    <th>報名</th>
+                    <th>筆試／面試</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="#ncku">6. 成大</a></td><td>11/30–12/7</td><td>無筆試；面試 1/15</td></tr>
+                  <tr><td><a href="#ntou">7. 海大</a></td><td>11/30–2/1</td><td>航管筆試 3/6；通訊導航僅審查</td></tr>
+                  <tr><td><a href="#ntut">8. 北科大</a></td><td>12/1–12/10</td><td>工工筆試 2/21；面試 2/17–2/19</td></tr>
+                  <tr><td><a href="#nsysu">9. 中山</a></td><td>12/1–12/16</td><td>乙組統計筆試 2/3；面試 3/8–3/14</td></tr>
+                  <tr><td><a href="#nycu">10. 陽明交大</a></td><td>12/8–12/15</td><td>筆試 1/27–1/28；口試／面試 1/15、3/18–3/19</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="legend" aria-label="標示說明">
+            <span><i class="k-quota">名額</i>人數／費用</span>
+            <span><i class="k-exam">考試</i>考試方式</span>
+            <span><i class="k-weight">配分</i>權重／門檻</span>
+            <span><i class="k-date">時程</i>日期</span>
+            <span><i class="k-docs">書審</i>繳件</span>
+            <span><i class="k-warn">注意</i>重要規定</span>
+            <span><i class="k-contact">聯絡</i>電話／信箱</span>
+            <span><i class="k-overlap">同時報名</i>報名重疊</span>
+            <span><i class="k-clash">同日考試</i>撞期</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="panel-detail" id="school-panel">
     <!-- 1. 師大（報名最早） -->
     <section class="uni" id="ntnu">
       <div class="uni-head">
@@ -565,49 +991,10 @@
       </div>
     </section>
 
-<!-- 2. 中央 -->
-    <section class="uni" id="ncu">
-      <div class="uni-head">
-        <h2>2. 國立中央大學</h2>
-        <div class="links">
-          <a href="https://www.ncu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
-          <a href="https://cis.ncu.edu.tw/ExamRegister/" target="_blank" rel="noopener">考試入學報名系統</a>
-          <a href="https://admission.ncu.edu.tw/static/file/24/1024/img/458/455320457.pdf" target="_blank" rel="noopener">116碩士考試簡章</a>
-        </div>
-        <div class="schedule">
-          <span><b>報名</b>115/11/17(二)–11/26(四)</span>
-          <span class="countdown" data-kind="reg" data-start="2026-11-17T09:00:00+08:00" data-end="2026-11-26T15:30:00+08:00" data-label="報名">計算中…</span>
-          <span><b>本頁系所</b>無筆試；口試 116/2/23(二) 上午</span>
-          <span class="countdown" data-kind="exam" data-start="2027-02-23T08:00:00+08:00" data-end="2027-02-23T12:00:00+08:00" data-label="口試">計算中…</span>
-        </div>
-      </div>
-      <div class="uni-body">
-        <div class="college">
-          <h3>人工智慧相關</h3>
-          <ul class="programs">
-            <li>
-              <div class="prog-title">
-                <a href="https://igpai.ncu.edu.tw/" target="_blank" rel="noopener">資訊電機學院人工智慧碩士學位學程</a>
-                <span class="chip">人工智慧國際碩士學位學程</span>
-              </div>
-              <div class="facts">
-                <div class="fact"><span class="k k-quota">名額</span><span class="v"><span class="mark mark-quota">一般生 5 名</span>；正式名稱：人工智慧國際碩士學位學程</span></div>
-                <div class="fact"><span class="k k-exam">考試</span><span class="v"><span class="mark mark-exam">無筆試</span>；初試資料審查 → 複試口試；<span class="mark mark-warn">全部英語授課</span></span></div>
-                <div class="fact"><span class="k k-weight">配分</span><span class="v">資料審查權重 <span class="mark mark-weight">1.0</span>＋口試權重 <span class="mark mark-weight">1.5</span>；同分：口試 → 資料審查</span></div>
-                <div class="fact"><span class="k k-docs">書審</span><span class="v">115/12/10 17:00 前上傳：大學歷年成績單影本、學程自訂個人資料審查表、英文能力證明、其他有利資料、線上推薦信至少 2 封</span></div>
-                <div class="fact"><span class="k k-date">時程</span><span class="v">複試名單 <span class="mark mark-date">2/18(四)</span> 公告；口試 <span class="mark mark-date">2/23(二)</span> 上午，工程二館（二期）2F</span></div>
-                <div class="fact"><span class="k k-contact">聯絡</span><span class="v">(03)4227151 轉 35011；ncu35011@ncu.edu.tw</span></div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-<!-- 3. 中興 -->
+<!-- 2. 中興 -->
     <section class="uni" id="nchu">
       <div class="uni-head">
-        <h2>3. 國立中興大學</h2>
+        <h2>2. 國立中興大學</h2>
         <div class="links">
           <a href="https://www.nchu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://mewtwo.nchu.edu.tw/enroll/recut_Admission1" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -643,10 +1030,10 @@
       </div>
     </section>
 
-<!-- 4. 清大 -->
+<!-- 3. 清大 -->
     <section class="uni" id="nthu">
       <div class="uni-head">
-        <h2>4. 國立清華大學（清大）</h2>
+        <h2>3. 國立清華大學（清大）</h2>
         <div class="links">
           <a href="https://www.nthu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://adms.site.nthu.edu.tw/p/412-1207-17261.php?Lang=zh-tw" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -684,10 +1071,10 @@
       </div>
     </section>
 
-<!-- 5. 中正 -->
+<!-- 4. 中正 -->
     <section class="uni" id="ccu">
       <div class="uni-head">
-        <h2>5. 國立中正大學</h2>
+        <h2>4. 國立中正大學</h2>
         <div class="links">
           <a href="https://www.ccu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://s2.exam.ccu.edu.tw/netnoget/NPChoose.php" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -721,10 +1108,10 @@
       </div>
     </section>
 
-<!-- 6. 台科大 -->
+<!-- 5. 台科大 -->
     <section class="uni" id="ntust">
       <div class="uni-head">
-        <h2>6. 國立臺灣科技大學（台科大）</h2>
+        <h2>5. 國立臺灣科技大學（台科大）</h2>
         <div class="links">
           <a href="https://www.ntust.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://www.ntust.edu.tw/116entry3" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -836,10 +1223,10 @@
       </div>
     </section>
 
-<!-- 7. 成大 -->
+<!-- 6. 成大 -->
     <section class="uni" id="ncku">
       <div class="uni-head">
-        <h2>7. 國立成功大學（成大）</h2>
+        <h2>6. 國立成功大學（成大）</h2>
         <div class="links">
           <a href="https://www.ncku.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://campus4.ncku.edu.tw/door/" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -873,10 +1260,10 @@
       </div>
     </section>
 
-<!-- 8. 海大 -->
+<!-- 7. 海大 -->
     <section class="uni" id="ntou">
       <div class="uni-head">
-        <h2>8. 國立臺灣海洋大學（海大）</h2>
+        <h2>7. 國立臺灣海洋大學（海大）</h2>
         <div class="links">
           <a href="https://www.ntou.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://exam.ntou.edu.tw/" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -920,10 +1307,10 @@
       </div>
     </section>
 
-<!-- 9. 北科大 -->
+<!-- 8. 北科大 -->
     <section class="uni" id="ntut">
       <div class="uni-head">
-        <h2>9. 國立臺北科技大學（北科大）</h2>
+        <h2>8. 國立臺北科技大學（北科大）</h2>
         <div class="links">
           <a href="https://www.ntut.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://master.ntut.edu.tw/" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -999,10 +1386,10 @@
       </div>
     </section>
 
-<!-- 10. 中山 -->
+<!-- 9. 中山 -->
     <section class="uni" id="nsysu">
       <div class="uni-head">
-        <h2>10. 國立中山大學</h2>
+        <h2>9. 國立中山大學</h2>
         <div class="links">
           <a href="https://www.nsysu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://exam-acad.nsysu.edu.tw/exam_netlist/exam_netlist_index.php" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -1057,10 +1444,10 @@
       </div>
     </section>
 
-<!-- 11. 陽明交大（校內碩考報名最晚；含台聯大） -->
+<!-- 10. 陽明交大（校內碩考報名最晚；含台聯大） -->
     <section class="uni" id="nycu">
       <div class="uni-head">
-        <h2>11. 國立陽明交通大學（陽明交大）</h2>
+        <h2>10. 國立陽明交通大學（陽明交大）</h2>
         <div class="links">
           <a href="https://www.nycu.edu.tw/" target="_blank" rel="noopener">學校官網</a>
           <a href="https://apply.nycu.edu.tw/" target="_blank" rel="noopener">考試入學報名系統</a>
@@ -1205,6 +1592,8 @@
     <footer>
       已標註考科或甄試方式者依 116 學年度官方簡章核對；未標註者尚未核實，不代表沒有筆試。名額與日期以各校最新公告為準。
     </footer>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -1218,15 +1607,73 @@
       const input = document.getElementById("gate-pass");
       const error = document.getElementById("gate-error");
 
+      var schoolPanel = document.getElementById("school-panel");
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll("nav.toc a[data-school]"));
+      var spyObserver = null;
+
+      function setActiveSchool(id) {
+        tocLinks.forEach(function (a) {
+          a.classList.toggle("is-active", a.getAttribute("data-school") === id);
+        });
+      }
+
+      function scrollToSchool(id, updateHash) {
+        var target = document.getElementById(id);
+        if (!target || !schoolPanel) return;
+        setActiveSchool(id);
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (updateHash !== false) {
+          try {
+            history.replaceState(null, "", "#" + id);
+          } catch (e) {}
+        }
+      }
+
+      function bindSchoolNav() {
+        document.addEventListener("click", function (e) {
+          var a = e.target.closest('a[href^="#"]');
+          if (!a) return;
+          var href = a.getAttribute("href") || "";
+          if (!/^#[A-Za-z]/.test(href)) return;
+          var id = href.slice(1);
+          if (!document.getElementById(id)) return;
+          e.preventDefault();
+          scrollToSchool(id);
+        });
+
+        if (!("IntersectionObserver" in window)) return;
+        if (spyObserver) spyObserver.disconnect();
+        var usePanelRoot = schoolPanel && schoolPanel.scrollHeight > schoolPanel.clientHeight + 8;
+        spyObserver = new IntersectionObserver(function (entries) {
+          var best = null;
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
+          });
+          if (best && best.target && best.target.id) setActiveSchool(best.target.id);
+        }, {
+          root: usePanelRoot ? schoolPanel : null,
+          rootMargin: "0px 0px -55% 0px",
+          threshold: [0.15, 0.35, 0.55]
+        });
+        document.querySelectorAll(".uni").forEach(function (sec) {
+          spyObserver.observe(sec);
+        });
+      }
+
       function unlock() {
         try { sessionStorage.setItem(STORAGE_KEY, "1"); } catch (e) {}
         gate.hidden = true;
         app.hidden = false;
+        bindSchoolNav();
+        if (typeof refreshStatusUI === "function") refreshStatusUI();
+        var hash = (location.hash || "").replace(/^#/, "");
+        if (hash && document.getElementById(hash)) {
+          requestAnimationFrame(function () { scrollToSchool(hash, false); });
+        } else if (tocLinks[0]) {
+          setActiveSchool(tocLinks[0].getAttribute("data-school"));
+        }
       }
-
-      try {
-        if (sessionStorage.getItem(STORAGE_KEY) === "1") unlock();
-      } catch (e) {}
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -1395,17 +1842,19 @@
             });
           }
 
-          var regHtml;
+          var regRow = box.querySelector(".overlap-reg").closest(".fact");
           if (!regParts.length) {
-            regHtml = "無重疊學校";
+            box.querySelector(".overlap-reg").innerHTML = "";
+            if (regRow) regRow.classList.add("is-empty");
           } else {
-            regHtml = '<span class="mark mark-overlap">報名重疊</span> ' + regParts.join("、");
+            var regHtml = '<span class="mark mark-overlap">報名重疊</span> ' + regParts.join("、");
             if (isFinite(school.regStart) && isFinite(school.regEnd) && now >= school.regStart && now <= school.regEnd) {
               var peers = openNow.length ? openNow.join("、") : "僅本校";
               regHtml += '；<span class="mark mark-overlap">目前開放中</span> ' + peers;
             }
+            box.querySelector(".overlap-reg").innerHTML = regHtml;
+            if (regRow) regRow.classList.remove("is-empty");
           }
-          box.querySelector(".overlap-reg").innerHTML = regHtml;
 
           var clashParts = [];
           schools.forEach(function (other) {
@@ -1433,15 +1882,301 @@
             return true;
           });
 
-          box.querySelector(".overlap-exam").innerHTML = clashParts.length
-            ? '<span class="mark mark-clash">注意撞期</span> ' + clashParts.join("；")
-            : "無同日筆試／口試";
+          var examRow = box.querySelector(".overlap-exam").closest(".fact");
+          if (!clashParts.length) {
+            box.querySelector(".overlap-exam").innerHTML = "";
+            if (examRow) examRow.classList.add("is-empty");
+          } else {
+            box.querySelector(".overlap-exam").innerHTML =
+              '<span class="mark mark-clash">注意撞期</span> ' + clashParts.join("；");
+            if (examRow) examRow.classList.remove("is-empty");
+          }
+
+          box.classList.toggle("is-empty", !regParts.length && !clashParts.length);
         });
       }
 
-      tickCountdowns();
+      function collectSchoolTimelines() {
+        return Array.prototype.map.call(document.querySelectorAll(".uni"), function (uni) {
+          var h2 = uni.querySelector("h2");
+          var shortName = shortSchoolName(h2 ? h2.textContent : uni.id);
+          var regEl = uni.querySelector('.countdown[data-kind="reg"][data-label="報名"]') ||
+            uni.querySelector('.countdown[data-kind="reg"]');
+          var regStart = regEl ? Date.parse(regEl.getAttribute("data-start") || "") : NaN;
+          var regEnd = regEl ? Date.parse(regEl.getAttribute("data-end") || "") : NaN;
+          var exams = [];
+          uni.querySelectorAll('.countdown[data-kind="exam"]').forEach(function (el) {
+            var label = el.getAttribute("data-label") || "考試";
+            if (/台聯大/.test(label)) return;
+            var s = Date.parse(el.getAttribute("data-start") || "");
+            var e = Date.parse(el.getAttribute("data-end") || "");
+            if (!isFinite(s) || !isFinite(e)) return;
+            exams.push({ label: label, start: s, end: e });
+          });
+          return { id: uni.id, shortName: shortName, regStart: regStart, regEnd: regEnd, exams: exams };
+        });
+      }
+
+      function updateTocBadges() {
+        var now = Date.now();
+        var soonMs = 21 * 86400000;
+        var schools = collectSchoolTimelines();
+        schools.forEach(function (school) {
+          var link = document.querySelector('nav.toc a[data-school="' + school.id + '"]');
+          if (!link) return;
+          var badge = link.querySelector(".toc-badge");
+          if (!badge) return;
+          badge.className = "toc-badge";
+          var text = "";
+          var cls = "";
+          if (isFinite(school.regStart) && isFinite(school.regEnd) && now >= school.regStart && now <= school.regEnd) {
+            text = "報名中";
+            cls = "is-open";
+          } else {
+            var nextExam = null;
+            school.exams.forEach(function (ex) {
+              if (ex.end < now) return;
+              if (!nextExam || ex.start < nextExam.start) nextExam = ex;
+            });
+            if (nextExam && nextExam.start - now <= soonMs) {
+              text = "近日考試";
+              cls = "is-soon";
+            } else if (isFinite(school.regStart) && now < school.regStart) {
+              text = "待報名";
+              cls = "is-idle";
+            } else if (isFinite(school.regEnd) && now > school.regEnd) {
+              text = "已截止";
+              cls = "is-done";
+            }
+          }
+          if (!text) {
+            badge.hidden = true;
+            badge.textContent = "";
+            return;
+          }
+          badge.hidden = false;
+          badge.textContent = text;
+          badge.classList.add(cls);
+        });
+      }
+
+      function updateNextDeadlines() {
+        var el = document.getElementById("next-deadlines");
+        if (!el) return;
+        var now = Date.now();
+        var schools = collectSchoolTimelines();
+        var openRegs = [];
+        var upcomingExams = [];
+        schools.forEach(function (school) {
+          if (isFinite(school.regStart) && isFinite(school.regEnd) && now >= school.regStart && now <= school.regEnd) {
+            openRegs.push({
+              id: school.id,
+              name: school.shortName,
+              end: school.regEnd
+            });
+          }
+          school.exams.forEach(function (ex) {
+            if (ex.end < now) return;
+            upcomingExams.push({
+              id: school.id,
+              name: school.shortName,
+              label: ex.label,
+              start: ex.start
+            });
+          });
+        });
+        openRegs.sort(function (a, b) { return a.end - b.end; });
+        upcomingExams.sort(function (a, b) { return a.start - b.start; });
+
+        var parts = [];
+        if (openRegs.length) {
+          var topRegs = openRegs.slice(0, 2).map(function (r) {
+            return '<a href="#' + r.id + '">' + r.name + "</a>距截止 " + formatRemain(r.end - now);
+          }).join("、");
+          parts.push('<span class="tag tag-reg">報名中</span>' + topRegs +
+            (openRegs.length > 2 ? " 等 " + openRegs.length + " 校" : ""));
+        }
+        if (upcomingExams.length) {
+          var ex = upcomingExams[0];
+          var when = now >= ex.start ? "進行中" : "還有 " + formatRemain(ex.start - now);
+          parts.push(
+            '<span class="tag tag-exam">下一場</span><a href="#' + ex.id + '">' + ex.name + "</a>・" +
+            ex.label + "（" + when + "）"
+          );
+        }
+        el.innerHTML = parts.length
+          ? parts.join('<span class="sep">｜</span>')
+          : "目前沒有進行中的報名或即將到來的考試";
+      }
+
+      function bindScheduleToggle() {
+        var panel = document.getElementById("panel-schedule");
+        var btn = document.getElementById("schedule-toggle");
+        if (!panel || !btn) return;
+        var KEY = "university-plan-schedule-open";
+        function apply(open) {
+          panel.classList.toggle("is-collapsed", !open);
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          btn.textContent = open ? "收合總時程" : "展開總時程";
+          try { localStorage.setItem(KEY, open ? "1" : "0"); } catch (e) {}
+        }
+        var saved = null;
+        try { saved = localStorage.getItem(KEY); } catch (e) {}
+        apply(saved === "1");
+        btn.addEventListener("click", function () {
+          apply(panel.classList.contains("is-collapsed"));
+        });
+      }
+
+      function collectCalEvents() {
+        var map = {};
+        function push(day, item) {
+          if (!map[day]) map[day] = [];
+          map[day].push(item);
+        }
+        function eachDay(start, end, fn) {
+          var t = Date.parse(dayKey(start) + "T00:00:00+08:00");
+          var last = Date.parse(dayKey(end) + "T00:00:00+08:00");
+          if (!isFinite(t) || !isFinite(last)) return;
+          while (t <= last) {
+            fn(dayKey(t));
+            t += 86400000;
+          }
+        }
+        document.querySelectorAll(".uni").forEach(function (uni) {
+          var h2 = uni.querySelector("h2");
+          var school = shortSchoolName(h2 ? h2.textContent : uni.id);
+          uni.querySelectorAll(".countdown").forEach(function (el) {
+            var kind = el.getAttribute("data-kind") || "exam";
+            var label = el.getAttribute("data-label") || "";
+            var s = Date.parse(el.getAttribute("data-start") || "");
+            var e = Date.parse(el.getAttribute("data-end") || "");
+            if (!isFinite(s) || !isFinite(e)) return;
+            eachDay(s, e, function (day) {
+              push(day, {
+                school: school,
+                kind: kind,
+                label: label,
+                schoolId: uni.id
+              });
+            });
+          });
+        });
+        return map;
+      }
+
+      function initSideCalendar() {
+        var titleEl = document.getElementById("cal-title");
+        var gridEl = document.getElementById("cal-grid");
+        var listEl = document.getElementById("cal-list");
+        var prevBtn = document.getElementById("cal-prev");
+        var nextBtn = document.getElementById("cal-next");
+        if (!titleEl || !gridEl || !listEl) return;
+
+        var events = collectCalEvents();
+        var now = new Date();
+        var viewY = now.getFullYear();
+        var viewM = now.getMonth();
+        var selected = null;
+
+        function pad(n) { return n < 10 ? "0" + n : String(n); }
+        function ymd(y, m, d) {
+          return y + "-" + pad(m + 1) + "-" + pad(d);
+        }
+
+        function showDay(key) {
+          selected = key;
+          var items = events[key] || [];
+          var parts = key.split("-");
+          var heading = Number(parts[1]) + "/" + Number(parts[2]);
+          if (!items.length) {
+            listEl.innerHTML = "<strong>" + heading + "</strong>當日無本頁行程";
+            render();
+            return;
+          }
+          var html = "<strong>" + heading + "・" + items.length + " 項</strong>";
+          items.forEach(function (it) {
+            var tag = it.kind === "reg" ? "報名" : it.label || "考試";
+            html += "<div><a href=\"#" + it.schoolId + "\">" + it.school + "</a> · " + tag + "</div>";
+          });
+          listEl.innerHTML = html;
+          render();
+        }
+
+        function render() {
+          titleEl.textContent = viewY + " / " + (viewM + 1);
+          gridEl.innerHTML = "";
+          var first = new Date(viewY, viewM, 1);
+          var startPad = first.getDay();
+          var daysInMonth = new Date(viewY, viewM + 1, 0).getDate();
+          var prevDays = new Date(viewY, viewM, 0).getDate();
+          var todayKey = ymd(now.getFullYear(), now.getMonth(), now.getDate());
+          var cells = [];
+          var i;
+          for (i = 0; i < startPad; i++) {
+            cells.push({ day: prevDays - startPad + i + 1, muted: true, key: null });
+          }
+          for (i = 1; i <= daysInMonth; i++) {
+            cells.push({ day: i, muted: false, key: ymd(viewY, viewM, i) });
+          }
+          var nextDay = 1;
+          while (cells.length % 7 !== 0) {
+            cells.push({ day: nextDay++, muted: true, key: null });
+          }
+          // trim trailing incomplete? keep full weeks only up to 6 rows
+          cells.forEach(function (cell) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "side-cal-day";
+            btn.textContent = String(cell.day);
+            if (cell.muted || !cell.key) {
+              btn.classList.add("is-muted");
+              btn.disabled = true;
+            } else {
+              var ev = events[cell.key] || [];
+              var hasReg = ev.some(function (x) { return x.kind === "reg"; });
+              var hasExam = ev.some(function (x) { return x.kind !== "reg"; });
+              if (hasReg) btn.classList.add("has-reg");
+              if (hasExam) btn.classList.add("has-exam");
+              if (hasReg || hasExam) btn.classList.add("has-event");
+              if (cell.key === todayKey) btn.classList.add("is-today");
+              if (cell.key === selected) btn.classList.add("is-selected");
+              btn.addEventListener("click", function () { showDay(cell.key); });
+            }
+            gridEl.appendChild(btn);
+          });
+        }
+
+        prevBtn.addEventListener("click", function () {
+          viewM -= 1;
+          if (viewM < 0) { viewM = 11; viewY -= 1; }
+          render();
+        });
+        nextBtn.addEventListener("click", function () {
+          viewM += 1;
+          if (viewM > 11) { viewM = 0; viewY += 1; }
+          render();
+        });
+
+        render();
+        showDay(ymd(now.getFullYear(), now.getMonth(), now.getDate()));
+      }
+
+      function refreshStatusUI() {
+        tickCountdowns();
+        updateTocBadges();
+        updateNextDeadlines();
+      }
+
+      bindScheduleToggle();
+      refreshStatusUI();
       buildConflictFacts();
-      setInterval(tickCountdowns, 1000);
+      initSideCalendar();
+      setInterval(refreshStatusUI, 1000);
+
+      try {
+        if (sessionStorage.getItem(STORAGE_KEY) === "1") unlock();
+      } catch (e) {}
     })();
   </script>
 </body>
